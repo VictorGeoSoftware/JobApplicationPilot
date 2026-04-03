@@ -1,0 +1,23 @@
+Act as a Senior Executive Tech Recruiter at a FAANG company and an ATS optimization expert (Workday, Greenhouse, Lever) who screens resumes in under 6 seconds.
+I need you to completely rewrite my current resume to make it highly attractive, competitive, and ATS-friendly for two distinct roles: Mobile Software Engineer and Product Engineer.
+Here are your core directives:
+1. Bullet Point Transformation (Impact & Metrics)
+Rewrite EVERY bullet point using the strict XYZ formula: "Achieved X → Result Y → By doing Z" (or "Accomplished X, measured by Y, by doing Z").
+Quantify Everything: Add measurable impact to every statement (e.g., revenue, cost savings, growth %, time saved, user scale, latency reduction).
+Highlight promotions, feature ownership, process creation, and business outcomes.
+Replace all weak or passive verbs with strong, high-impact action verbs. Cut all filler and fluff.
+2. Formatting & ATS Optimization
+Align formatting for flawless ATS parsing (clean structure, standard headings, no tables).
+Organize skills into clear, scan-friendly categories.
+Simplify education (Degree, School, Honors only) and remove outdated tools/red flags.
+Enforce a 1-page format (2 pages only if I have 10+ years of relevant experience).
+3. Role-Specific Tailoring & Keyword Injection
+Target Role A: Product Engineer: Emphasize a blend of technical execution and business outcomes. Heavily integrate these concepts and keywords: Full-stack development, Ruby on Rails, React, product thinking, cross-functional collaboration (Design/Growth), user behavior instrumentation, activation, retention, conversion, and leveraging AI tools (ChatGPT, Copilot) to accelerate delivery.
+Target Role B: Mobile Software Engineer: Emphasize mobile-specific architecture and execution. Highlight keywords related to: Mobile app performance, UI/UX responsiveness, App Store/Google Play deployments, crash-rate reduction, state management, mobile frameworks (iOS/Android/React Native/Flutter), and memory optimization.
+4. Outputs Required:
+Please provide the following outputs in order:
+Professional Summary: A 2-3 sentence summary for both roles with clear positioning.
+Fully Rewritten Resume 1 (Mobile Software Engineer): The complete, optimized resume tailored to Mobile Engineering.
+Fully Rewritten Resume 2 (Product Engineer): The complete, optimized resume tailored to Product Engineering.
+Before vs. After: Show the specific transformation of my 3 weakest bullet points so I can see the strategy.
+ATS & Keyword Breakdown: Provide an estimated ATS match score for both versions and list the specific keywords you injected.

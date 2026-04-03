@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victor Palma Carrasco – Mobile Software Engineer</title>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --line: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.45;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 26px 32px 36px;
+    }
+
+    header {
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 27px;
+      line-height: 1.1;
+      color: #0b3557;
+    }
+
+    .headline {
+      margin-top: 4px;
+      font-size: 13.5px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .contact {
+      margin-top: 5px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .contact a { color: var(--primary); text-decoration: none; }
+
+    .section { margin-top: 13px; }
+
+    .section-title {
+      margin: 0 0 7px;
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #0b3557;
+      border-left: 3px solid var(--primary);
+      padding-left: 7px;
+    }
+
+    p.summary {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px 20px;
+    }
+
+    .skill-cat {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .skill-cat strong {
+      color: #0b3557;
+      display: block;
+      margin-bottom: 2px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .role { margin-bottom: 11px; }
+    .role:last-child { margin-bottom: 0; }
+
+    .role-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 1px;
+      flex-wrap: wrap;
+    }
+
+    .role-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .date {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .stack {
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    li { margin-bottom: 3px; line-height: 1.48; }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 10px 0;
+    }
+
+    .edu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .edu-list li { margin-bottom: 3px; }
+
+    .header-layout {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .profile-photo {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .header-content { flex: 1; }
+
+    @media (max-width: 700px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .page { padding: 18px 16px 24px; }
+      .header-layout { flex-direction: column; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <header>
+      <div class="header-layout">
+        <img src="me_cv.png" alt="Victor Palma Carrasco" class="profile-photo" />
+        <div class="header-content">
+          <h1>Victor Palma Carrasco</h1>
+          <div class="headline">Mobile Software Engineer &nbsp;·&nbsp; Android &nbsp;·&nbsp; Kotlin &nbsp;·&nbsp; Jetpack Compose &nbsp;·&nbsp; KMP &nbsp;·&nbsp; AI-Augmented Delivery</div>
+          <div class="contact">
+            Uddevalla, Sweden &nbsp;·&nbsp; +46 072 650 1186 &nbsp;·&nbsp;
+            <a href="mailto:vpalmacarrasco@gmail.com">vpalmacarrasco@gmail.com</a> &nbsp;·&nbsp;
+            <a href="https://www.linkedin.com/in/victor-palma-carrasco-a884ba57/">linkedin.com/in/victor-palma-carrasco-a884ba57</a> &nbsp;·&nbsp;
+            <a href="https://github.com/VictorGeoSoftware">github.com/VictorGeoSoftware</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── SUMMARY ─────────────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary">
+        Senior Mobile Software Engineer with 10+ years shipping production Android applications at scale, including a flagship app serving <strong>2M+ global users</strong>. Expert in Kotlin, Jetpack Compose, Clean Architecture, and MVVM — with a strong track record in UI performance optimization, crash-rate reduction, state management, and cross-platform architecture (KMP, Android + iOS). Pioneers <strong>AI-augmented mobile development</strong> workflows (GitHub Copilot, ChatGPT) that accelerate feature delivery by up to 40% while enforcing TDD quality gates and CI/CD standards.
+      </p>
+    </section>
+
+    <!-- ── SKILLS ─────────────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-cat">
+          <strong>Mobile Engineering</strong>
+          Kotlin, Java, Android SDK, Jetpack Compose, Navigation Component, MVVM, Clean Architecture, Kotlin Multiplatform (KMP), iOS/Xcode, Coroutines, StateFlow, Hilt, Room
+        </div>
+        <div class="skill-cat">
+          <strong>Performance &amp; Quality</strong>
+          Memory optimization, UI rendering, state management, crash-rate reduction, TDD (JUnit5, MockK), UI automation (Espresso, Cucumber), Google Play &amp; App Store deployment, CAN bus / embedded protocol integration
+        </div>
+        <div class="skill-cat">
+          <strong>DevOps &amp; AI Tools</strong>
+          Azure Pipelines, GitHub Actions, Docker, Firebase, Maven publish · GitHub Copilot, ChatGPT, Windsurf (Cascade), Node.js, TypeScript, REST/WebSocket, Koog AI Agent Framework
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE ─────────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+
+      <div class="role">
+        <div class="role-head">
+          <span class="role-title">Senior Software Engineer — Volvo Group</span>
+          <span class="date">Jan 2024 – Present</span>
+        </div>
+        <div class="stack">Kotlin · Koog AI Agent Framework (JetBrains) · MCP (Model Context Protocol) · Ktor 3 · Jetpack Compose · Clean Architecture · JUnit5 · MockK · Espresso · Cucumber · UDP · CAN Bus · Azure DevOps · GitHub Actions · Maven</div>
+        <ul>
+          <li>Architected and shipped <strong>pcan-data-receiver</strong>, a production Android library integrating PEAK System PCAN vehicle diagnostics over UDP with BAU10 Transport Protocol, StateFlow observables, and coroutine-based multi-frame message assembly — adopted across <strong>3+ Volvo product lines</strong> via Maven Local distribution, eliminating 100% of per-team integration duplication.</li>
+          <li>Reduced feature implementation time by <strong>40%</strong> by pioneering AI-augmented mobile development workflows (GitHub Copilot, ChatGPT, Windsurf), while enforcing strict TDD quality gates (JUnit5, MockK) and CI/CD pipeline controls to preserve code quality at speed.</li>
+          <li>Achieved <strong>85%+ critical-module test coverage</strong> by establishing TDD-first engineering standards with full UI test automation (Espresso + Cucumber) across a modular Jetpack Compose + MVVM + Clean Architecture codebase — significantly reducing production regression risk.</li>
+          <li>Architected an <strong>enterprise AI prototype</strong> for a Volvo Group third-party client — integrated an MCP server into the Availability Backend (C# / ASP.NET Core), built a <strong>Kotlin + Koog (JetBrains)</strong> custom AI agent consuming MCP tools against the Volvo GenAI Hub (Azure AI / GPT-4o), and exposed it via a Ktor 3 REST API to a React web dashboard — enabling natural-language queries over live fleet availability data and generating direct client interest in a <strong>production-ready engagement</strong>.</li>
+          <li>Improved release confidence and deployment frequency by hardening CI/CD pipelines in Azure DevOps and GitHub Actions, eliminating manual validation bottlenecks and standardizing the release process across product lines.</li>
+          <li>Mentored 2 junior engineers through structured code reviews and pair programming sessions aligned with Clean Architecture, SOLID, and TDD principles, cutting their onboarding ramp-up time by an estimated 50%.</li>
+        </ul>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="role">
+        <div class="role-head">
+          <span class="role-title">Senior Android Engineer — Volvo Cars</span>
+          <span class="date">2019 – 2024</span>
+        </div>
+        <div class="stack">Kotlin · Jetpack Compose · Navigation · MVVM · Firebase · Iterable · Kotlin Multiplatform (KMP) · REST</div>
+        <ul>
+          <li>Owned core feature development for the <strong>Volvo Cars Android app serving 2M+ global users</strong>, partnering cross-functionally with Backend, Design, and Platform teams to translate business requirements into production-quality mobile experiences.</li>
+          <li>Reduced UI rendering time by <strong>30%</strong> and accelerated developer velocity by leading the end-to-end migration from legacy XML layouts to <strong>Jetpack Compose + Navigation Component</strong>, ensuring full alignment with Platform Team modular architecture requirements.</li>
+          <li>Influenced Volvo Cars' long-term cross-platform mobile strategy by authoring <strong>KMP RFD documents</strong> and delivering a working Kotlin Multiplatform PoC, demonstrating concrete code reuse across Android and iOS surfaces — directly shaping the company's multi-year platform roadmap.</li>
+          <li>Improved push notification delivery reliability for <strong>2M+ users</strong> by implementing <strong>Firebase + Iterable</strong> integration with full campaign observability, enabling retention and re-engagement initiatives backed by reliable, measurable delivery.</li>
+        </ul>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="role">
+        <div class="role-head">
+          <span class="role-title">Android Engineer — A3 Media</span>
+          <span class="date">2018 – 2019</span>
+        </div>
+        <div class="stack">Java · MVP · Android · Media Streaming</div>
+        <ul>
+          <li>Improved streaming stability and UX for <strong>A3 Player (500K+ downloads)</strong> by delivering new features and critical performance fixes within a 4-person Android team serving Spain's #2 broadcast network, maintaining zero critical streaming outages.</li>
+          <li>Enforced code quality and reduced defect escape rate by leading code reviews and pair programming sessions on Java/MVP codebases, catching regressions before production release.</li>
+        </ul>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="role">
+        <div class="role-head">
+          <span class="role-title">Android Engineer — mShop</span>
+          <span class="date">2015 – 2018</span>
+        </div>
+        <div class="stack">Java · Kotlin · Android · Google Play Store · Clean Architecture</div>
+        <ul>
+          <li>Joined as <strong>founding Android engineer</strong> at a freshly launched startup operating under high-stakes expectations from day one — built the entire mobile capability from the ground up with zero legacy codebase, zero playbook, and zero prior mobile team to inherit.</li>
+          <li>Shipped <strong>3 production apps</strong> for major retail brands — <strong>Alcampo (Auchan Group)</strong> on Google Play, <strong>E'Leclerc</strong> industrial internal apps, and a third-party plate-check utility — reaching hundreds of thousands of combined users across consumer and B2B surfaces.</li>
+          <li>Sustained <strong>high delivery frequency</strong> through short, aggressive sprint cycles — shipping features and architectural improvements simultaneously while collaborating directly with iOS, Backend, Design, and Product stakeholders on scope, priority, and tech specs.</li>
+          <li>Defined modular app architectures from scratch for each product, reducing feature onboarding time by an estimated <strong>35%</strong> and enabling independent parallel development tracks as the team scaled.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ────────────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">Selected Engineering Projects</h2>
+
+      <div class="role">
+        <div class="role-head">
+          <span class="role-title">DeFi Arbitrage System — 4-Service Production Architecture</span>
+        </div>
+        <div class="stack">Node.js · Ethers.js · Solidity · Hardhat · Foundry · Balancer Flash Loans · SQLite · Next.js 14 · TypeScript · PM2 · Arbitrum One</div>
+        <ul>
+          <li>Designed and shipped a <strong>4-service distributed system</strong> (Trading Bot, Market Intelligence Agent, Token Hunter, Analytics Dashboard) monitoring <strong>14 trading pairs across 4 DEXes</strong> on Arbitrum One Layer 2, running 24/7 via PM2 with circuit-breaker and auto-blacklist mechanisms.</li>
+          <li>Achieved <strong>100% critical-path test coverage</strong> across an 86-test Token Hunter suite — including automated honeypot detection, liquidity safety validation, and factory event listeners for dynamically discovered trading pairs.</li>
+          <li>Implemented dynamic flash loan scaling (0.5×–2.0× baseline) and real-time market regime detection (NORMAL / HIGH_VOL / CRASH), reducing failed trade attempts by pre-emptively blacklisting unhealthy pool states before execution.</li>
+        </ul>
+      </div>
+
+      <div class="role" style="margin-top:8px;">
+        <div class="role-head">
+          <span class="role-title">AI-Augmented Developer Workflow Tooling</span>
+        </div>
+        <div class="stack">Python · Whisper · yt-dlp · Markdown automation</div>
+        <ul>
+          <li>Built a resilient transcript extraction pipeline (captions-first + Whisper-fallback strategy) that standardized knowledge artifacts for AI-assisted engineering research, reducing manual documentation effort by an estimated <strong>60%</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="role" style="margin-top:8px;">
+        <div class="role-head">
+          <span class="role-title">B&amp;M Energy Platform — Full-Stack Product for Energy Consulting (Personal)</span>
+        </div>
+        <div class="stack">Kotlin · Android Clean Architecture · Ktor 2 REST API · Next.js 15 · React 19 · TypeScript · Tailwind CSS · Firebase · n8n · Docling AI · Python · Docker · GitHub Actions</div>
+        <ul>
+          <li>Architected and shipped a <strong>4-component production system</strong> for an Energy Consulting client — Android app (Clean Architecture: app/data/domain modules), Next.js 15 web frontend, Kotlin/Ktor 2 REST API, and an n8n AI automation layer — deployed to a live production server via Docker + GitHub Actions CI/CD.</li>
+          <li>Built an <strong>AI-powered electricity bill processing pipeline</strong> using Docling AI and custom n8n nodes, automating structured extraction of CUPS codes, customer details, and price tables from Spanish energy PDFs — eliminating 100% of manual data entry and reducing processing time from hours to seconds.</li>
+          <li>Designed the Kotlin/Ktor backend with full CRUD REST API (price tables, consumption PDF upload/processing), SQLite + Exposed ORM, rate limiting, health monitoring, and Nginx reverse proxy — deployed and running in production with zero-downtime automated deployment.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── EDUCATION ───────────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">Education &amp; Languages</h2>
+      <ul class="edu-list">
+        <li><strong>Blockchain Bootcamp 2.0</strong> — DAPP University (2025)</li>
+        <li><strong>Surveyor Engineering</strong> — Universidad Politécnica de Madrid (2004 – 2012)</li>
+        <li><strong>Languages:</strong> Spanish (Native) · English (Fluent) · Swedish (Basic)</li>
+      </ul>
+    </section>
+
+  </main>
+</body>
+</html>

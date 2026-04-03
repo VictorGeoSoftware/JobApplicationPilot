@@ -5,7 +5,7 @@
 - **Phone:** +46 072 650 1186
 - **Email:** vpalmacarrasco@gmail.com
 - **Location:** Bockholmsvägen 10C - Uddevalla, Sweden
-- **LinkedIn:** [LinkedIn URL]
+- **LinkedIn:** [www.linkedin.com/in/victor-palma-carrasco-a884ba57]
 
 ## Profile
 Software engineer with main expertise on Android projects, and also bringing some expertise in blockchain development, and backend systems. Skilled in building clean-architecture Android applications and scalable REST APIs using modern frameworks. Passionate about exploring emerging technologies including Web3, Kotlin Multiplatform, and AI-driven document processing. Strong advocate for clean code principles, SOLID design patterns, and modular architecture. Notable achievements include developing and architecting multi-layer mobile applications following domain-driven design.
@@ -36,6 +36,8 @@ Software engineer with main expertise on Android projects, and also bringing som
 
 ### mShop | Android Engineer
 *2015 - 2018*
+- Fast paced startup environment with tight deadlines and high expectations.
+- High delivery velocity with short feedback loops.
 - Responsible of full development of all Android Apps at the Company. Among them, we can find Alcampo App (on Google Play), E’Leclerc industrial apps (internally distributed apps), Plate checker app for parking controllers (third party library).
 - Responsible of technical design and development of new features, and implementation of evolutionary reviews.
 - In charge of provide all new knowledge and new features of Android platform, and attach them to possible solutions for the company. Also architecture design for new apps.
