@@ -1,0 +1,12 @@
+[
+  {
+    "key": "most_complicated_project",
+    "description": "Most complicated project and how you handled uncertainty",
+    "response": "One of my most complex projects was architecting an Android diagnostic library for vehicle communication protocols while keeping it reusable across multiple applications. The challenge was balancing hardware-level constraints, clean architecture boundaries, and testability. I decomposed the implementation into domain-driven modules, introduced contract tests early, and iterated with backend and QA stakeholders to validate assumptions quickly."
+  },
+  {
+    "key": "best_project",
+    "description": "What are you the most proud of (feature/app)?",
+    "response": "One of the features I'm proud the most is an Android Library for decoding UDP message packages that were coming from a P-Can device (industrial realm), into an Android App listening to these packages stream, throughout a Flask web service installed on my local computer. It was technically complicated, but, also, was the first impacting project that I built supported by AI, in this case LLM Claude 3.7 (this was on summer 2025). I had a lot of fun and learnt a lot back then! :)"
+  }
+]

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victor Palma Carrasco - AI CV</title>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.45;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 32px 40px;
+    }
+
+    header {
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.1;
+      color: #0b3557;
+    }
+
+    .headline {
+      margin-top: 6px;
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .contact {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .section {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #0b3557;
+      border-left: 4px solid var(--primary);
+      padding-left: 8px;
+    }
+
+    .summary { color: var(--muted); margin: 0; }
+
+    .tag-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 16px;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .skills-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .sub-title {
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    li { margin-bottom: 4px; }
+
+    .role {
+      margin-bottom: 14px;
+    }
+
+    .role:last-child { margin-bottom: 0; }
+
+    .role-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .role-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .date {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .stack {
+      font-size: 13px;
+      color: var(--primary);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .header-layout {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .header-content {
+      flex: 1;
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 20px 16px 28px; }
+      .tag-grid, .skills-columns { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+      .header-layout { flex-direction: column; text-align: center; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="header-layout">
+        <img src="me_cv.png" alt="Victor Palma Carrasco" class="profile-photo" />
+        <div class="header-content">
+          <h1>Victor Palma Carrasco</h1>
+          <div class="headline">Senior Software Engineer | AI-Augmented Engineering | Android, Backend, Blockchain</div>
+          <div class="contact">
+            Uddevalla, Sweden · +46 072 650 1186 · vpalmacarrasco@gmail.com<br />
+            LinkedIn: <a href="https://www.linkedin.com/in/victor-palma-carrasco-a884ba57/">victor-palma-carrasco-a884ba57</a> ·
+            GitHub: <a href="https://github.com/VictorGeoSoftware">VictorGeoSoftware</a> ·
+            Medium: <a href="https://medium.com/@vpalmacarrasco">@vpalmacarrasco</a>
+          </div>
+        </div>
+      </div>
+      <p class="footer-note" style="display: none;">Optional ATS title variants: Senior Software Engineer (AI-Augmented Development) · AI Software Engineer · Staff Engineer, Developer Productivity · Blockchain Software Engineer (AI-Orchestrated Development)</p>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary">
+        Senior Software Engineer with 10+ years delivering production systems across mobile, backend, and platform engineering.
+        Strong track record in <strong>AI-Augmented Software Development</strong>, evolving from pure implementation into an
+        <strong>AI Development Pilot</strong> role: guiding Copilot/LLMs/agents with technical context, architecture rules,
+        test constraints, and security controls.
+      </p>
+      <p class="summary" style="margin-top:8px;">
+        Combines <strong>Clean Architecture, SOLID, and TDD</strong> with modern <strong>Prompt Engineering, Agentic Workflows,
+        and Security-by-Design</strong> to accelerate delivery while protecting software quality.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Core Competencies</h2>
+      <ul class="tag-grid">
+        <li>AI-Augmented Engineering</li>
+        <li>AI Development Pilot</li>
+        <li>Prompt Engineering</li>
+        <li>Agent Orchestration</li>
+        <li>Context Engineering (agents.md, project rules)</li>
+        <li>LLM-Assisted Development</li>
+        <li>Test-Driven Development (TDD)</li>
+        <li>Security by Design</li>
+        <li>Shift-Left Quality</li>
+        <li>CI/CD, DevEx, Engineering Productivity</li>
+        <li>Android (Kotlin, Jetpack Compose)</li>
+        <li>Blockchain / DeFi (Solidity, Foundry)</li>
+        <li>Workflow Automation (n8n)</li>
+        <li>Rapid MVP Delivery</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-columns">
+        <div>
+          <h3 class="sub-title">AI & Productivity Engineering</h3>
+          <ul>
+            <li>Prompt engineering for generation, refactoring, and architecture alignment</li>
+            <li>Agentic workflows with reusable context and coding standards</li>
+            <li>AI-assisted deep research for technical due diligence</li>
+            <li>AI-generated and AI-reviewed test cases</li>
+            <li>NotebookLM-style knowledge workflows (video/PDF/web to structured artifacts)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub-title">Software Engineering</h3>
+          <ul>
+            <li><strong>Languages:</strong> Kotlin, Java, TypeScript, JavaScript, Solidity</li>
+            <li><strong>Mobile:</strong> Android Native, Jetpack Compose, MVVM, KMP (PoC)</li>
+            <li><strong>Backend/Web:</strong> Node.js, Next.js, REST/WebSocket</li>
+            <li><strong>Blockchain:</strong> Hardhat, Foundry, Ethers.js, Uniswap V3/V4</li>
+            <li><strong>DevOps:</strong> GitHub Actions, Azure Pipelines, Docker</li>
+            <li><strong>Quality:</strong> TDD (JUnit5, MockK), Espresso, Cucumber</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">Senior Software Engineer — Volvo Group</div>
+          <div class="date">2024 – Present</div>
+        </div>
+        <ul>
+          <li>Architected Android libraries for PEAK System PCAN diagnostics, enabling reusable modules across multiple product lines.</li>
+          <li>Led engineering standards around TDD, modularization, and maintainable Kotlin architectures, significantly reducing technical debt.</li>
+          <li>Strengthened CI/CD pipelines in Azure DevOps and GitHub Actions, accelerating release cycles and improving stability.</li>
+          <li>Applied AI-assisted development patterns to speed up implementation by an estimated 40% while preserving strict quality gates.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">Senior Android Engineer — Volvo Cars</div>
+          <div class="date">2019 – 2024</div>
+        </div>
+        <ul>
+          <li>Contributed to the core architecture and feature delivery for the flagship Volvo Cars mobile app used by millions of users.</li>
+          <li>Led the migration to a modern Android stack (Jetpack Compose, Navigation), improving UI rendering performance and developer velocity.</li>
+          <li>Drove Kotlin Multiplatform (KMP) PoCs to evaluate code reuse, directly influencing the long-term technical strategy.</li>
+          <li>Optimized CI/CD workflows, cutting down pipeline execution times and reducing release friction.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">Android Engineer — A3 Media</div>
+          <div class="date">2018 – 2019</div>
+        </div>
+        <ul>
+          <li>Developed streaming features for A3 Player, improving media reliability and UX.</li>
+          <li>Contributed through pair programming and code review practices in Java/MVP codebases.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head">
+          <div class="role-title">Android Engineer — mShop</div>
+          <div class="date">2015 – 2018</div>
+        </div>
+        <ul>
+          <li>Led end-to-end Android development for retail and industrial applications.</li>
+          <li>Designed maintainable app architectures and helped modernize delivery practices.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Selected AI-Focused Projects</h2>
+
+      <article class="role">
+        <div class="role-title">AI-Orchestrated DeFi Arbitrage Engine (Personal Project)</div>
+        <div class="stack">Solidity, Hardhat/Foundry, Node.js, TypeScript, AI coding assistants</div>
+        <ul>
+          <li>Designed a modular smart-contract architecture with AI-assisted review loops, ensuring strict adherence to SOLID principles.</li>
+          <li>Accelerated edge-case discovery and automated test generation for multi-leg swap logic, covering 100% of critical paths.</li>
+          <li>Implemented advanced validation layers, mitigating net-loss transactions by factoring in gas and slippage overheads.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-title">AI-Augmented Developer Workflow Tooling (Personal)</div>
+        <div class="stack">Python, Whisper, yt-dlp, automation scripts</div>
+        <ul>
+          <li>Built transcript extraction pipeline with captions-first and Whisper-fallback strategy.</li>
+          <li>Hardened reliability through iterative debugging of dependency/runtime and downloader constraints.</li>
+          <li>Standardized output as Markdown/text assets for research and knowledge reuse.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-title">AI-Assisted Engineering Productivity Patterns (Ongoing)</div>
+        <ul>
+          <li>Built reusable prompt/context playbooks for faster onboarding and quality consistency.</li>
+          <li>Applied pilot model: AI drives generation speed, engineer enforces architecture, tests, and security.</li>
+          <li>Reduced repetitive engineering work with template-driven automation.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">AI Delivery Methodology (Value Proposition)</h2>
+      <ol>
+        <li><strong>Context First:</strong> define architecture, rules, and constraints before generation.</li>
+        <li><strong>AI-Assisted Build:</strong> use copilots/agents for implementation speed.</li>
+        <li><strong>AI + TDD:</strong> generate and refine tests early to avoid hidden regressions.</li>
+        <li><strong>Security by Design:</strong> audit AI output for insecure defaults and vulnerability patterns.</li>
+        <li><strong>Production Readiness:</strong> enforce CI quality gates, observability, and rollback strategy.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Education & Languages</h2>
+      <ul>
+        <li><strong>Blockchain Bootcamp 2.0</strong> — DAPP University (2025)</li>
+        <li><strong>Surveyor Engineering</strong> — Universidad Politécnica de Madrid (2004–2012)</li>
+        <li><strong>Languages:</strong> Spanish (Native), English (Fluent), Swedish (Basic)</li>
+        <li><strong>Driving license:</strong> Category B</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
