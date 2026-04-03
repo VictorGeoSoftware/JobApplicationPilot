@@ -1,3 +1,6 @@
 node_modules/
 .env
 .DS_Store
+/.idea/job-application-pilot.iml
+/.idea/modules.xml
+/.idea/vcs.xml
