@@ -1,0 +1,51 @@
+Your Senior Product Engineer (AI) application at Plain
+
+Hi Victor 👋
+ 
+Thank you so much for taking the time to apply to Plain! We really appreciate your interest in what we're building.
+After reviewing your application, we’ve decided not to move forward this time.
+If it's helpful context, here are some of the more common reasons we don’t progress at this stage:
+The impact of your work wasn’t clearly outlined on your CV.
+The stage or scale of companies doesn’t quite align with what we need right now.
+The role is tied to specific locations we’re currently hiring in.
+We had a lot of strong applications, including yours and we simply weren’t able to speak with everyone.
+We know rejection emails can be impersonal - this comes from a real inbox, not a no-reply address. That said, due to the number of requests we get for feedback, we’re not able to offer individual feedback.
+
+
+
+Ashby Follow Up
+Hey Victor!
+ 
+Thanks a lot for applying to the Senior Software Engineer, Product Engineering, EU role.
+ 
+We've reviewed your background, and right now, we don't see an ideal fit for this position. This rejection simply means we couldn’t get the signal we needed from your resume and application to feel there was a fit — it is by no means a rejection of your skills and experience in general.
+ 
+We have a high applicant volume and a relatively small team to review them. So, we can’t provide feedback about your specific resume or application, but we can give some reasons we commonly reject folks. These reasons may not apply to you, and they’re not the only reasons we reject folks, but we’re sharing them in the off-chance they help you:
+
+More than 2 years of tenure at the same place - It's important for our Product Engineers to have experienced the consequences of their decisions, iterated based on those consequences, and honed their judgment for future decisions. We believe the outcomes of the most challenging engineering work sometimes take years to shake out. 
+Experience outside of a consulting or agency environment - Our engineers make product decisions and are highly user-focused here at Ashby, We believe consulting environments do not encourage the strong sense of ownership that is needed to succeed here.
+Experience in an early-stage startup that is fast-paced - For understandable reasons, the product cycle tends to be longer at larger companies and every feature released requires more research and consensus. At Ashby, one of our strengths in the market is how fast we ship features, and we do this by removing blockers from engineers and relying on them to maintain a solid pace. We hire engineers who have proven they can thrive in that environment.
+Description of individual contributions that is specific - This is an individual contributor role, and while we love hiring people who have leadership experience, we need to see sufficiently specific depiction of what you've done personally to assess the impact of it. Resumes with vague verbiage, such as "achieved performance improvements" are difficult to assess. In that example, we would need an extra line explaining exactly how you did that. 
+Sufficient breadth in achievements and responsibilities - We value versatility in engineers, and prefer hiring generalists who can do a bit of design, a bit of infrastructure, improve DevEx, track metrics, etc. (i.e. wear many hats!). If your entire experience has been within a specialization (frontend, backend, DevOps, etc) it will appear less of a fit compared to a more flexible profile.
+ 
+We’re happy to reconsider you for the role in the future, but please note that we have application limits that limit how quickly you can reapply.
+ 
+Thanks for considering Ashby and for taking the time to apply. We really appreciate your interest!
+ 
+Ashby Engineering Leadership
+
+
+Kognity
+Hi Victor,
+ 
+Thank you so much for taking the time to speak with me about the Software Engineer role here at Kognity and for sharing your experience.
+ 
+After some internal discussions, we don't feel this role is likely to be a perfect fit.
+ 
+While your background in Android development and experience with complex systems are impressive, we are looking for someone with broader experience in shipping customer-facing features on a daily basis. This role requires a focus on diverse engineering tasks, which we feel may not align perfectly with your recent work.
+ 
+I appreciate you taking the time to speak with me and wish you the best of luck in your future endeavours.
+ 
+We value feedback on our hiring process. In a few days, you’ll receive a short survey link, and we’d be grateful if you could share your thoughts so we can continue to improve.
+ 
+Danny
