@@ -22,6 +22,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 JOB_PILOT_DIR = ROOT_DIR.parent
 DOCS_DIR = JOB_PILOT_DIR / "docs"
 QUESTIONS_PATH = JOB_PILOT_DIR / "questions.json"
+AGENT_CONFIG_PATH = JOB_PILOT_DIR / "AGENT_CONFIG.md"
 
 
 settings = Settings()

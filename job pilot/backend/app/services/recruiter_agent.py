@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.config import settings
+from app.config import AGENT_CONFIG_PATH, settings
 from app.models import RecruiterRequest
 from app.services.context_store import ContextStore
 from app.services.volvo_genai_client import VolvoGenAIClient
@@ -12,6 +12,7 @@ class RecruiterAgent:
         self.context_store = context_store
         self.web_search = web_search
         self.llm_client = llm_client
+        self.system_prompt = self._load_system_prompt()
 
     async def answer(self, payload: RecruiterRequest) -> tuple[str, list[str], str]:
         retrieved = self.context_store.retrieve(payload.question, limit=settings.max_context_chunks)
@@ -30,13 +31,13 @@ class RecruiterAgent:
         )
 
         answer = await self.llm_client.generate_answer(
-            system_prompt=self._system_prompt(),
+            system_prompt=self.system_prompt,
             user_prompt=user_prompt,
             screenshot_base64=payload.screenshot_base64,
         )
         return answer, context_files, web_research
 
-    def _system_prompt(self) -> str:
+    def _default_system_prompt(self) -> str:
         return (
             "You are an Elite Technical Recruiter specialized in helping software engineers win job applications. "
             "Use STAR method thinking (Situation, Task, Action, Result), balance technical depth and soft skills, "
@@ -47,6 +48,19 @@ class RecruiterAgent:
             "✍️ The Perfect Answer\n"
             "In The Perfect Answer section, produce final text that the candidate can directly paste into the application."
         )
+
+    def _load_system_prompt(self) -> str:
+        try:
+            raw = AGENT_CONFIG_PATH.read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return self._default_system_prompt()
+
+        marker = "[SYSTEM_PROMPT]"
+        if marker not in raw:
+            return self._default_system_prompt()
+
+        section = raw.split(marker, 1)[1].strip()
+        return section or self._default_system_prompt()
 
     def _build_user_prompt(
         self,

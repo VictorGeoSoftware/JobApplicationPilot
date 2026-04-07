@@ -4,6 +4,7 @@ This module adds a complete AI-powered job-application copilot with:
 
 - **Backend**: Python REST agent server (`job pilot/backend`)
 - **Frontend**: Chrome/Brave browser extension (`job pilot/extension`)
+- **Agent prompt config**: `job pilot/AGENT_CONFIG.md`
 
 ## 1) Backend Setup (Volvo GenAI + RAG + Vision + Persistence)
 
@@ -31,6 +32,13 @@ Set in `job pilot/backend/.env`:
 ### RAG Local Context
 Put your candidate context files in:
 - `job pilot/docs/`
+
+### Agent Prompt File
+The backend loads the system prompt from:
+- `job pilot/AGENT_CONFIG.md`
+
+It reads everything after the `[SYSTEM_PROMPT]` marker and sends that as the model's system prompt.
+If the file or marker is missing, it falls back to an internal default prompt.
 
 Supported: `.txt`, `.md`, `.json`, `.pdf`
 
