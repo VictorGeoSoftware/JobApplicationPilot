@@ -6,7 +6,10 @@ const questionInput = document.getElementById("questionInput");
 const companyName = document.getElementById("companyName");
 const jobUrl = document.getElementById("jobUrl");
 const sendBtn = document.getElementById("sendBtn");
+const clearBtn = document.getElementById("clearBtn");
 const screenshotInput = document.getElementById("screenshotInput");
+const STORAGE_KEY = "jobPilotPopupState";
+const PENDING_JOB_KEY = "jobPilotPendingJobId";
 
 let chatHistory = [];
 let screenshotBase64 = null;
@@ -22,16 +25,93 @@ function renderChat() {
   chatEl.scrollTop = chatEl.scrollHeight;
 }
 
+function sendRuntimeMessage(message) {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(message, (response) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+        return;
+      }
+      resolve(response || {});
+    });
+  });
+}
+
+async function pollJob(jobId) {
+  setStatus("Thinking...");
+  sendBtn.disabled = true;
+
+  while (true) {
+    const response = await sendRuntimeMessage({ type: "jobpilot:get-job", jobId });
+    const job = response?.job;
+
+    if (!job || job.status === "running") {
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      continue;
+    }
+
+    await chrome.storage.local.remove(PENDING_JOB_KEY);
+    await sendRuntimeMessage({ type: "jobpilot:clear-job", jobId });
+
+    if (job.status === "done") {
+      addMessage("assistant", job.result.answer);
+      setStatus(`Used docs: ${job.result.used_context_files.join(", ") || "none"}`);
+      questionInput.value = "";
+      await saveState();
+    } else {
+      addMessage("assistant", `Error: ${job.error || "Request failed"}`);
+      setStatus("Request failed.");
+    }
+
+    sendBtn.disabled = false;
+    break;
+  }
+}
+
 function addMessage(role, content) {
   chatHistory.push({ role, content });
   if (chatHistory.length > 20) {
     chatHistory = chatHistory.slice(-20);
   }
   renderChat();
+  void saveState();
 }
 
 function setStatus(text) {
   statusEl.textContent = text;
+}
+
+async function saveState() {
+  try {
+    await chrome.storage.local.set({
+      [STORAGE_KEY]: {
+        chatHistory,
+        companyName: companyName.value,
+        jobUrl: jobUrl.value,
+        questionDraft: questionInput.value,
+      },
+    });
+  } catch (_error) {
+  }
+}
+
+async function loadState() {
+  try {
+    const data = await chrome.storage.local.get(STORAGE_KEY);
+    const state = data?.[STORAGE_KEY];
+    if (!state) return;
+
+    if (Array.isArray(state.chatHistory)) {
+      chatHistory = state.chatHistory
+        .filter((entry) => entry && (entry.role === "user" || entry.role === "assistant") && typeof entry.content === "string")
+        .slice(-20);
+    }
+    companyName.value = typeof state.companyName === "string" ? state.companyName : "";
+    jobUrl.value = typeof state.jobUrl === "string" ? state.jobUrl : "";
+    questionInput.value = typeof state.questionDraft === "string" ? state.questionDraft : "";
+    renderChat();
+  } catch (_error) {
+  }
 }
 
 async function toBase64(file) {
@@ -51,6 +131,36 @@ screenshotInput.addEventListener("change", async (event) => {
   }
   screenshotBase64 = await toBase64(file);
   setStatus(`Screenshot ready: ${file.name}`);
+});
+
+companyName.addEventListener("input", () => {
+  void saveState();
+});
+
+jobUrl.addEventListener("input", () => {
+  void saveState();
+});
+
+questionInput.addEventListener("input", () => {
+  void saveState();
+});
+
+clearBtn.addEventListener("click", async () => {
+  chatHistory = [];
+  screenshotBase64 = null;
+  questionInput.value = "";
+  companyName.value = "";
+  jobUrl.value = "";
+  screenshotInput.value = "";
+  renderChat();
+  setStatus("Conversation cleared.");
+  const pending = await chrome.storage.local.get(PENDING_JOB_KEY);
+  const pendingJobId = pending?.[PENDING_JOB_KEY];
+  if (pendingJobId) {
+    await sendRuntimeMessage({ type: "jobpilot:clear-job", jobId: pendingJobId });
+    await chrome.storage.local.remove(PENDING_JOB_KEY);
+  }
+  await saveState();
 });
 
 sendBtn.addEventListener("click", async () => {
@@ -73,26 +183,23 @@ sendBtn.addEventListener("click", async () => {
   };
 
   try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.detail || "Failed to get answer");
+    const started = await sendRuntimeMessage({ type: "jobpilot:start-request", payload });
+    if (!started?.ok || !started?.jobId) {
+      throw new Error("Unable to start request job");
     }
-
-    addMessage("assistant", data.answer);
-    setStatus(`Used docs: ${data.used_context_files.join(", ") || "none"}`);
-    questionInput.value = "";
+    await chrome.storage.local.set({ [PENDING_JOB_KEY]: started.jobId });
+    await pollJob(started.jobId);
   } catch (error) {
     addMessage("assistant", `Error: ${error.message}`);
     setStatus("Request failed.");
-  } finally {
     sendBtn.disabled = false;
   }
 });
 
-renderChat();
+void loadState().then(async () => {
+  const data = await chrome.storage.local.get(PENDING_JOB_KEY);
+  const pendingJobId = data?.[PENDING_JOB_KEY];
+  if (pendingJobId) {
+    await pollJob(pendingJobId);
+  }
+});

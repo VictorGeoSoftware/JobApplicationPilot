@@ -10,7 +10,7 @@ from app.models import RecruiterRequest, RecruiterResponse
 from app.services.context_store import ContextStore
 from app.services.question_log import QuestionLogger
 from app.services.recruiter_agent import RecruiterAgent
-from app.services.volvo_genai_client import VolvoGenAIClient
+from app.services.volvo_genai_client import MissingConfigError, UpstreamModelError, VolvoGenAIClient
 from app.services.web_search import WebSearchService
 
 
@@ -51,8 +51,10 @@ async def recruiter_answer(payload: RecruiterRequest) -> RecruiterResponse:
 
     try:
         answer, context_files, web_research = await app.state.recruiter_agent.answer(payload)
-    except RuntimeError as error:
+    except MissingConfigError as error:
         raise HTTPException(status_code=500, detail=str(error)) from error
+    except UpstreamModelError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
     except Exception as error:
         raise HTTPException(status_code=502, detail=f"Model request failed: {error}") from error
 

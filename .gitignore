@@ -4,3 +4,33 @@ node_modules/
 /.idea/job-application-pilot.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Packaging / build outputs
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local workspace/data
+*.code-workspace
+questions.json
+job pilot/questions.json

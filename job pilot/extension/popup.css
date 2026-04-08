@@ -100,7 +100,15 @@ button {
   color: #fff;
 }
 
-button:hover,
+.secondary-btn {
+  background: #94a3b8;
+}
+
+.secondary-btn:hover {
+  background: #7c8ca3;
+}
+
+button:not(.secondary-btn):hover,
 .upload-btn:hover {
   background: var(--primary-strong);
 }
