@@ -35,6 +35,33 @@ body {
   font-size: 12px;
 }
 
+.social-links {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.social-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 10px;
+  background: #0b5f58;
+}
+
+.social-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: #ffffff;
+}
+
+.social-btn:active {
+  transform: translateY(1px);
+}
+
 .chat {
   height: 240px;
   overflow-y: auto;
@@ -111,6 +138,10 @@ button {
 button:not(.secondary-btn):hover,
 .upload-btn:hover {
   background: var(--primary-strong);
+}
+
+.social-btn:hover {
+  background: #0a514b;
 }
 
 #screenshotInput {

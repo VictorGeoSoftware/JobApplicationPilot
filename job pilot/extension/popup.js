@@ -8,6 +8,7 @@ const jobUrl = document.getElementById("jobUrl");
 const sendBtn = document.getElementById("sendBtn");
 const clearBtn = document.getElementById("clearBtn");
 const screenshotInput = document.getElementById("screenshotInput");
+const socialButtons = document.querySelectorAll(".social-btn");
 const STORAGE_KEY = "jobPilotPopupState";
 const PENDING_JOB_KEY = "jobPilotPendingJobId";
 
@@ -81,6 +82,23 @@ function setStatus(text) {
   statusEl.textContent = text;
 }
 
+async function copyToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const tempInput = document.createElement("textarea");
+  tempInput.value = text;
+  tempInput.style.position = "fixed";
+  tempInput.style.opacity = "0";
+  document.body.appendChild(tempInput);
+  tempInput.focus();
+  tempInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+}
+
 async function saveState() {
   try {
     await chrome.storage.local.set({
@@ -143,6 +161,25 @@ jobUrl.addEventListener("input", () => {
 
 questionInput.addEventListener("input", () => {
   void saveState();
+});
+
+socialButtons.forEach((button) => {
+  button.addEventListener("click", async () => {
+    const name = button.dataset.name;
+    const link = button.dataset.link;
+
+    if (!name || !link) {
+      setStatus("Social link not available.");
+      return;
+    }
+
+    try {
+      await copyToClipboard(link);
+      setStatus(`${name} link copied to clipboard.`);
+    } catch (_error) {
+      setStatus(`Could not copy ${name} link.`);
+    }
+  });
 });
 
 clearBtn.addEventListener("click", async () => {
