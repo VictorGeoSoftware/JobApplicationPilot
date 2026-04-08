@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite Recruiter Copilot</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <header class="panel-header">
+        <h1>Elite Recruiter Copilot</h1>
+        <p>Answer job-application questions instantly.</p>
+      </header>
+
+      <section id="chat" class="chat"></section>
+
+      <section class="meta-grid">
+        <input id="companyName" type="text" placeholder="Company name (optional)" />
+        <input id="jobUrl" type="url" placeholder="Job URL (optional)" />
+      </section>
+
+      <section class="input-wrap">
+        <textarea id="questionInput" rows="4" placeholder="Paste the application question here..."></textarea>
+        <div class="actions">
+          <label class="upload-btn" for="screenshotInput">Upload Screenshot</label>
+          <input id="screenshotInput" type="file" accept="image/*" />
+          <button id="clearBtn" type="button" class="secondary-btn">Clear</button>
+          <button id="sendBtn">Get Answer</button>
+        </div>
+      </section>
+
+      <p id="status" class="status"></p>
+    </main>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>
