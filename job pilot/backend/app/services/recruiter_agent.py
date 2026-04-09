@@ -1,0 +1,81 @@
+from __future__ import annotations
+
+from app.config import AGENT_CONFIG_PATH, settings
+from app.models import RecruiterRequest
+from app.services.context_store import ContextStore
+from app.services.llm_client import LLMClient
+from app.services.web_search import WebSearchService
+
+
+class RecruiterAgent:
+    def __init__(self, context_store: ContextStore, web_search: WebSearchService, llm_client: LLMClient) -> None:
+        self.context_store = context_store
+        self.web_search = web_search
+        self.llm_client = llm_client
+        self.system_prompt = self._load_system_prompt()
+
+    async def answer(self, payload: RecruiterRequest) -> tuple[str, list[str], str]:
+        retrieved = self.context_store.retrieve(payload.question, limit=settings.max_context_chunks)
+        context_blocks = [chunk.text for chunk in retrieved]
+        context_files = sorted({chunk.file_name for chunk in retrieved})
+
+        web_research = await self.web_search.search_company(payload.company_name, payload.job_url)
+        chat_history = "\n".join(f"{item.role}: {item.content}" for item in payload.chat_history[-6:])
+
+        user_prompt = self._build_user_prompt(
+            question=payload.question,
+            context_blocks=context_blocks,
+            web_research=web_research,
+            chat_history=chat_history,
+            company_name=payload.company_name,
+        )
+
+        answer = await self.llm_client.generate_answer(
+            system_prompt=self.system_prompt,
+            user_prompt=user_prompt,
+            screenshot_base64=payload.screenshot_base64,
+        )
+        return answer, context_files, web_research
+
+    def _default_system_prompt(self) -> str:
+        return (
+            "You are an Elite Technical Recruiter specialized in helping software engineers win job applications. "
+            "Use STAR method thinking (Situation, Task, Action, Result), balance technical depth and soft skills, "
+            "and tailor answers to the company context and user background. "
+            "Always format your output with exactly these sections and emojis:\n"
+            "🔍 The Real Intent\n"
+            "🧠 The Strategy\n"
+            "✍️ The Perfect Answer\n"
+            "In The Perfect Answer section, produce final text that the candidate can directly paste into the application."
+        )
+
+    def _load_system_prompt(self) -> str:
+        try:
+            raw = AGENT_CONFIG_PATH.read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return self._default_system_prompt()
+
+        marker = "[SYSTEM_PROMPT]"
+        if marker not in raw:
+            return self._default_system_prompt()
+
+        section = raw.split(marker, 1)[1].strip()
+        return section or self._default_system_prompt()
+
+    def _build_user_prompt(
+        self,
+        question: str,
+        context_blocks: list[str],
+        web_research: str,
+        chat_history: str,
+        company_name: str | None,
+    ) -> str:
+        docs_context = "\n\n".join(f"[Context {idx + 1}] {text}" for idx, text in enumerate(context_blocks))
+        return (
+            f"Candidate question:\n{question}\n\n"
+            f"Target company: {company_name or 'Not provided'}\n\n"
+            f"Recent chat context:\n{chat_history or 'None'}\n\n"
+            f"RAG context from /docs:\n{docs_context or 'No local context found.'}\n\n"
+            f"Web research notes:\n{web_research}\n\n"
+            "Generate a strategic but concise answer. If context is missing, state assumptions briefly and avoid inventing facts."
+        )

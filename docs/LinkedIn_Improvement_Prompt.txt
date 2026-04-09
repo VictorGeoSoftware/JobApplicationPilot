@@ -1,0 +1,173 @@
+Act as a world-class LinkedIn Profile Strategist, Senior Tech Recruiter at a top-tier company (FAANG/Big Tech), and personal branding expert specializing in software engineering profiles.
+
+I need you to completely rewrite and restructure my LinkedIn profile to maximize recruiter visibility, ATS search appearance, and conversion into interviews. My target roles are Senior Software Engineer and Senior Mobile/Android Engineer at leading tech companies in Sweden/Europe or remote.
+
+==========================================================
+CONTEXT: WHO I AM
+==========================================================
+
+Name: Victor Palma Carrasco
+Location: Gothenburg, Sweden
+Current Role: Senior Software Engineer at Volvo Group (Sep 2024 – Present)
+Previous Highlights:
+- Senior Android Engineer at Volvo Cars (Apr 2019 – Sep 2024, 5.5 years)
+- Senior Android Developer at Evoluciona / A3Media Group (Jun 2018 – Sep 2024, side/freelance)
+- Senior Android Developer at mShop (Mar 2015 – Jun 2018, 3+ years)
+Core Stack: Kotlin, Android, .NET, Firebase, Jetpack Compose, AI/MCP tools
+Writing: Active Medium author (4+ publications) covering MCP, Blockchain, AI integrations
+GitHub: github.com/VictorGeoSoftware
+Medium: medium.com/@vpalmacarrasco
+Languages: English (Full professional), Spanish (Native)
+Education: Ingeniero Técnico en Topografía – Universidad Politécnica de Madrid (2004–2012)
+
+==========================================================
+YOUR CORE DIRECTIVES
+==========================================================
+
+1. HEADLINE REWRITE
+- Replace "Senior Mobile Engineer | In constant learning!" with a keyword-rich, compelling headline
+- Follow format: [Role Title] | [Key specialization] | [Value differentiator]
+- Inject high-search-volume terms: Senior Android Engineer, Kotlin, Mobile Architecture, AI integration
+- The headline must communicate seniority, specialization, and a unique angle (e.g., AI-augmented mobile development)
+- Avoid clichés like "passionate", "in constant learning", "results-driven"
+- Provide 3 headline variations ranked by impact
+
+2. ABOUT SECTION — FULL REWRITE
+- Current about is just one sentence + two raw links — completely rewrite it
+- Target length: 2,200 characters (LinkedIn max) — use it fully
+- Structure:
+  * Opening hook (1-2 sentences): What makes Victor stand out immediately
+  * Core expertise paragraph: Technologies, architecture patterns, domains
+  * Impact paragraph: Quantified achievements if available (e.g., app scale, team size, deployment frequency)
+  * Recent evolution paragraph: Transition into AI/MCP tooling, publications, thought leadership
+  * Closing CTA: What he's open to, how to reach him
+- Tone: Professional, first-person, warm but authoritative — matches a senior engineer who writes on Medium
+- Do NOT paste raw links in the About text — they belong in the Featured section
+
+3. EXPERIENCE SECTION — ROLE-BY-ROLE REWRITE
+For each role, write 4-6 bullet points following the strict XYZ formula:
+"Accomplished [X], measured by [Y], by doing [Z]"
+- Quantify everything: user scale, performance improvements, team size, latency, crash rates, release cadence
+- Use strong action verbs: Architected, Engineered, Delivered, Led, Reduced, Optimized, Scaled
+- Replace all weak/passive language
+- All descriptions must be in English (translate/replace any Spanish text)
+- Clarify the Evoluciona overlap with Volvo Cars (mark as freelance/contractor if applicable)
+
+Roles to rewrite:
+a) Senior Software Engineer — Volvo Group (Sep 2024 – Present)
+   Current issue: ZERO description. Add context about scope, tech, impact, team size, business domain
+b) Senior Android Engineer — Volvo Cars (Apr 2019 – Sep 2024)
+   Current issue: ZERO description. This is 5.5 years at a global brand — make it shine
+c) Senior Android Developer — Evoluciona (Jun 2018 – Sep 2024, freelance/side)
+   Current issue: One Spanish sentence "Mantenimiento y evolutivos sobre aplicaciones del grupo A3Media"
+   Rewrite in English, clarify it was freelance/parallel to Volvo Cars
+d) Senior Android Developer — mShop (Mar 2015 – Jun 2018)
+   Add any available context about the product, team, impact
+e) Android Developer — Arca IT (Jan 2015 – Feb 2015)
+   Keep brief (2-month role) — one strong bullet max
+
+4. CUSTOM PROFILE URL
+- Current URL: www.linkedin.com/in/victor-palma-carrasco-a884ba57
+- Suggest the optimal clean custom URL to claim (e.g., victor-palma-carrasco or victorpalmacarrasco)
+
+5. FEATURED SECTION STRATEGY
+- Victor has 4 Medium publications — recommend which 2-3 to feature and how to title/describe them
+- Suggest also featuring GitHub profile link
+- Format: Title | One-line description that sells the content
+Publications visible:
+  * "Building an MCP Server for Your ASP.NET Backend: A Journey Through Chaos to Clarity" (Oct 2025)
+  * "Exploring the Blockchain world" (May 2025)
+  * 2 more not shown
+
+6. SKILLS SECTION AUDIT
+- Victor has 63 skills — this is too many and dilutes focus
+- Recommend a curated list of top 15-20 skills ordered by:
+  * Recruiter search frequency
+  * Relevance to target roles (Senior Engineer / Senior Android)
+  * Endorsement potential
+- Flag any skills that may appear vague or unverifiable (e.g., "AI Pilot", "Multi-platform" without context)
+- Ensure core skills are front and center: Kotlin, Jetpack Compose, Android SDK, Firebase, CI/CD, Architecture (MVVM/Clean), .NET
+
+7. RECOMMENDATIONS — STRATEGY
+- Current 4 received recommendations focus too much on personality, not technical skills
+- Draft a recommendation REQUEST template Victor can send to colleagues asking them to highlight:
+  * Specific technical contributions (Android architecture, Kotlin expertise, AI tooling)
+  * Measurable outcomes they witnessed
+  * Leadership, mentorship, or cross-team collaboration
+- Also draft talking points for getting recommendations that mention: Kotlin, Android architecture, AI/MCP, delivery at scale
+
+8. PUBLICATIONS — DESCRIPTION IMPROVEMENT
+Rewrite the descriptions for each visible publication to be more compelling:
+a) "Building an MCP Server for Your ASP.NET Backend" — current: "Brief article about my first experiences with MCP, and Back End development" → make it sound authoritative
+b) "Exploring the Blockchain world" — current: "Exposing some learnings and knowledge I got in the Blockchain Bootcamp master from DAPP University" → more polished
+c) Provide a formula for future publication descriptions (what to include in ~150 chars)
+
+9. PROJECTS SECTION
+- "Mis aplicaciones Android" has a Spanish description — rewrite fully in English
+- Add specific app names, download counts, or ratings if available
+- Suggest adding at least 1-2 GitHub-linked projects that showcase modern Android/Kotlin skills
+- Template format: [Project Name] | [Tech stack] | [Impact/scale if available] | [Link]
+
+10. ACTIVITY & CONTENT STRATEGY
+- Victor has 330 followers and 43 profile views / 12 search appearances (past 7 days) — room to grow
+- Current posts: reshares and personal stories (crypto, reflections) — low engagement, no thought leadership
+- Provide a 4-week content plan (1-2 posts/week) that positions Victor as a thought leader in:
+  * Android/Kotlin engineering
+  * AI-augmented development (MCP, agents, tooling)
+  * Engineering culture / lessons from Volvo
+- Post format mix: carousel, text posts, article reposts from Medium
+- Hook formulas for each post type
+
+11. BANNER/BACKGROUND IMAGE
+- Current: Industrial sunset (generic, no connection to tech)
+- Recommend: Design concept or description for a professional tech-themed banner
+  * Should reflect: Mobile engineering + AI/modern tools + Swedish tech scene or Volvo context
+  * Dimensions: 1584 x 396px
+  * Suggest 2-3 concepts (text overlay, color palette, imagery)
+
+12. OPEN TO WORK SETTINGS
+- "Senior Software Engineer and Android..." text is cut off — write the complete, optimized open-to-work configuration:
+  * Job titles to include (ranked by search volume)
+  * Preferred locations/remote settings
+  * Whether to show publicly or to recruiters only (recommendation + rationale)
+
+13. EDUCATION SECTION
+- Currently empty (no description, activities, or relevant coursework)
+- Even though the degree is in Topography (unrelated field), suggest how to frame the self-taught transition to Android engineering
+- Draft a brief, honest education description that doesn't hurt and ideally helps the narrative
+
+14. HONORS & AWARDS
+- "Desarrollador Android" from Colegio Oficial de Ingenieros Técnicos en Topografía — written in Spanish
+- Rewrite in English
+- Frame it as early recognition of technical skill, before formal career in mobile engineering
+
+==========================================================
+OUTPUT FORMAT REQUIRED
+==========================================================
+
+Please provide outputs in this exact order:
+
+1. HEADLINE — 3 optimized options with reasoning
+2. ABOUT — Full rewritten About section (up to 2,200 chars), ready to paste
+3. EXPERIENCE — All 5 roles fully rewritten with XYZ bullets (English only)
+4. CUSTOM URL — Recommendation + alternatives
+5. FEATURED SECTION — Which to feature + rewritten titles/descriptions
+6. SKILLS — Curated top 20 list with ordering rationale
+7. RECOMMENDATIONS — Request message template + talking points
+8. PUBLICATIONS — Rewritten descriptions for all 4 articles
+9. PROJECTS — "Mis aplicaciones Android" rewritten + suggestions for new projects
+10. CONTENT STRATEGY — 4-week posting plan with hooks
+11. BANNER — 2-3 concept descriptions
+12. OPEN TO WORK — Full optimized configuration
+13. EDUCATION — Draft description bridging Topography → Android
+14. HONORS — English rewrite + framing
+
+==========================================================
+QUALITY STANDARDS
+==========================================================
+
+- Every section must be immediately copy-pasteable into LinkedIn (no placeholders like [your achievement here] unless absolutely necessary)
+- Tone: Senior, credible, human — NOT corporate robot
+- Keywords to inject throughout (for LinkedIn search algorithm): Senior Android Engineer, Kotlin, Jetpack Compose, Android SDK, Mobile Architecture, MVVM, Clean Architecture, Firebase, CI/CD, .NET, AI integration, MCP, Volvo, Cross-functional, Hybrid work, Sweden, Europe
+- Do NOT mention "passionate about" or similar clichés anywhere
+- Flag any section where you need more information from Victor to complete it accurately
