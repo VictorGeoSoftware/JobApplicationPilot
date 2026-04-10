@@ -8,6 +8,29 @@ This module adds a complete AI-powered job-application copilot with:
 
 ## 1) Backend Setup (Volvo GenAI + RAG + Vision + Persistence)
 
+### Quick Start (recommended)
+
+From `job pilot/backend`:
+
+```bash
+bash backend-start.sh
+```
+
+To stop and clean cache folders:
+
+```bash
+bash backend-stop.sh
+```
+
+What this does:
+- Creates `.venv` once (if missing)
+- Installs/updates dependencies
+- Starts backend in background
+- Stores process id in `.backend.pid`
+- Writes logs to `.backend.log`
+
+### Manual Setup (fallback)
+
 ```bash
 cd "/Users/victor/Documents/Personal/Projects/JobApplicationPilot/job pilot/backend"
 python3 -m venv .venv
