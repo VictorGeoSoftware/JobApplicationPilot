@@ -39,6 +39,8 @@ body {
   display: flex;
   gap: 8px;
   margin-bottom: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .social-btn {
@@ -62,6 +64,21 @@ body {
   transform: translateY(1px);
 }
 
+.run-job-btn-top {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #1d4ed8;
+  color: #fff;
+}
+
+.run-job-btn-top:hover {
+  background: #1e40af;
+}
+
 .chat {
   height: 240px;
   overflow-y: auto;
@@ -77,8 +94,15 @@ body {
   padding: 8px 10px;
   border-radius: 10px;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-size: 12px;
   line-height: 1.4;
+}
+
+.msg a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .msg.user {
@@ -111,8 +135,10 @@ textarea {
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   margin-top: 8px;
 }
 

@@ -42,6 +42,7 @@ python run.py
 
 Backend endpoint:
 - `POST http://localhost:8000/api/recruiter/answer`
+- `POST http://localhost:8000/api/jobseeker/run`
 - `GET http://localhost:8000/api/health`
 
 ### Environment Variables
@@ -71,6 +72,24 @@ The backend loads the system prompt from:
 It reads everything after the `[SYSTEM_PROMPT]` marker and sends that as the model's system prompt.
 If the file or marker is missing, it falls back to an internal default prompt.
 
+### JobSeeker Autonomous Search Agent
+The repository also includes a trigger-driven autonomous job-search agent scaffold in:
+- `JobSeeker/`
+
+Important files:
+- `JobSeeker/KOOG_AGENT_PROMPT.md`
+- `JobSeeker/AGENT_INSTRUCTIONS.md`
+- `JobSeeker/job_search_report.html`
+
+Independence/decoupling contract:
+- JobSeeker runs as an independent process with its own prompt and instruction files.
+- Triggered externally via `POST /api/jobseeker/run` (extension button is one trigger source).
+- No company/job/screenshot input fields are required to run JobSeeker.
+- Uses the same backend `LLM_PROVIDER`, `AI_*`, and `CLAUDE_*` environment variables as the rest of `job pilot`.
+
+When `POST /api/jobseeker/run` is triggered, the backend uses the current LLM provider to generate a standalone HTML job-search report and writes it to:
+- `JobSeeker/job_search_report.html`
+
 Supported: `.txt`, `.md`, `.json`, `.pdf`
 
 ### Question Persistence
@@ -89,6 +108,9 @@ The popup includes:
 - Question input
 - Company + Job URL optional fields
 - Upload Screenshot button
+- `Run Job Search` button for the autonomous JobSeeker workflow
+
+When the JobSeeker button is clicked, the extension triggers the backend run and then shows the generated report file path in the popup conversation/status area.
 
 ## API Request Example
 

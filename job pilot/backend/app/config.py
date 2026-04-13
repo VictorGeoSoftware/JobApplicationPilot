@@ -22,6 +22,7 @@ class Settings(BaseSettings):
 
     max_context_chunks: int = 6
     max_question_logs: int = 500
+    web_search_verify_ssl: bool = True
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]

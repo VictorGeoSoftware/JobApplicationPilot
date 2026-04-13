@@ -3,7 +3,7 @@
   "name": "Elite Recruiter Copilot",
   "version": "1.0.0",
   "description": "AI recruiter assistant for job application questions.",
-  "permissions": ["storage"],
+  "permissions": ["storage", "tabs"],
   "host_permissions": ["http://localhost:8000/*"],
   "background": {
     "service_worker": "background.js"

@@ -5,9 +5,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import DOCS_DIR, QUESTIONS_PATH, settings
-from app.models import RecruiterRequest, RecruiterResponse
+from app.config import DOCS_DIR, QUESTIONS_PATH, ROOT_DIR, settings
+from app.models import JobSeekerRequest, JobSeekerResponse, RecruiterRequest, RecruiterResponse
 from app.services.context_store import ContextStore
+from app.services.job_seeker_agent import JobSeekerAgent
 from app.services.llm_factory import build_llm_client
 from app.services.llm_client import MissingConfigError, UpstreamModelError
 from app.services.question_log import QuestionLogger
@@ -25,6 +26,7 @@ async def lifespan(app: FastAPI):
     app.state.context_store = context_store
     app.state.question_logger = question_logger
     app.state.recruiter_agent = RecruiterAgent(context_store, web_search, llm_client)
+    app.state.job_seeker_agent = JobSeekerAgent(llm_client, web_search, ROOT_DIR.parent)
     yield
 
 
@@ -65,3 +67,17 @@ async def recruiter_answer(payload: RecruiterRequest) -> RecruiterResponse:
         used_context_files=context_files,
         web_research=web_research,
     )
+
+
+@app.post("/api/jobseeker/run", response_model=JobSeekerResponse)
+async def run_jobseeker(_payload: JobSeekerRequest) -> JobSeekerResponse:
+    try:
+        result = await app.state.job_seeker_agent.run()
+    except MissingConfigError as error:
+        raise HTTPException(status_code=500, detail=str(error)) from error
+    except UpstreamModelError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+    except Exception as error:
+        raise HTTPException(status_code=502, detail=f"JobSeeker run failed: {error}") from error
+
+    return JobSeekerResponse(**result)

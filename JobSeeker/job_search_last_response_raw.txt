@@ -1,0 +1,34 @@
+```json
+{
+  "executive_summary": "All live web search queries failed due to HTTP 302 redirects from DuckDuckGo. No job postings were retrieved. This report documents the search failure and provides methodology that would have been applied. Zero jobs are included because no evidence was obtained. This is a complete search infrastructure failure, not a lack of available positions.",
+  "top_overall_matches": [],
+  "commercial_mobile_track": [],
+  "defense_aerospace_track": [],
+  "methodology": [
+    "Attempted 6 parallel live web searches across both Commercial Mobile and Defense/Aerospace tracks",
+    "Targeted roles: Senior Mobile Engineer, Mobile-First Full-Stack Engineer, Lead/Staff Mobile Engineer (Commercial); Mobile-First Full-Stack, Dedicated Mobile, Product/Web Engineer with mobile advantage (Defense)",
+    "Applied 48-hour recency filter to all queries",
+    "Geographic constraints: Remote Europe preferred, Sweden/EU eligibility mandatory, Gothenburg hybrid only if exceptional",
+    "Ranking criteria: T-shaped mobile/full-stack fit, remote friendliness, seniority/compensation, product quality, recency, application clarity",
+    "Planned deduplication across job boards and company career pages",
+    "Intended to validate postings against official company sources where possible"
+  ],
+  "notable_risks": [
+    "Complete search infrastructure failure means zero visibility into current market opportunities",
+    "Cannot assess whether strong matches exist in the 48-hour window",
+    "Cannot validate posting dates, tech stacks, or remote policies",
+    "Defense roles requiring security clearance or Swedish citizenship cannot be flagged without search results",
+    "Candidate may be missing time-sensitive opportunities during this outage"
+  ],
+  "search_limitations": [
+    "All 6 DuckDuckGo search queries returned HTTP 302 redirects instead of results",
+    "Commercial Mobile Track: 3 queries failed (Senior Mobile Engineer, Mobile-First Full-Stack, Lead/Staff Mobile)",
+    "Defense & Aerospace Track: 3 queries failed (Mobile-First Full-Stack, Dedicated Mobile, Product/Web Engineer)",
+    "No fallback search provider was available in this execution context",
+    "No cached or historical data was used (per instruction to avoid fabrication)",
+    "Unable to access LinkedIn Jobs, Wellfound, The Hub, Karriär.se, or company career pages",
+    "Unable to verify any posting dates, tech stacks, work models, or clearance requirements",
+    "Report generation timestamp: 2026-04-13 06:11 UTC, but no jobs were discovered"
+  ]
+}
+```

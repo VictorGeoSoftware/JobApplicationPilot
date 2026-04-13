@@ -1,0 +1,4 @@
+[2026-04-13 05:56 UTC] fallback_used=True reason=incomplete_html_or_plain_text raw_chars=4313 final_chars=5131 raw_has_close_html=False final_has_close_html=True
+[2026-04-13 05:57 UTC] fallback_used=True reason=incomplete_html_or_plain_text raw_chars=4315 final_chars=5143 raw_has_close_html=False final_has_close_html=True
+[2026-04-13 06:04 UTC] fallback_used=False reason=json_parsed raw_chars=2754 final_chars=4020 final_has_close_html=True
+[2026-04-13 06:11 UTC] fallback_used=False reason=json_parsed raw_chars=2563 final_chars=3829 final_has_close_html=True

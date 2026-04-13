@@ -8,6 +8,18 @@ class ChatMessage(BaseModel):
     content: str = Field(min_length=1)
 
 
+class JobSeekerRequest(BaseModel):
+    pass
+
+
+class JobSeekerResponse(BaseModel):
+    report_path: str
+    generated_at: str
+    prompt_files: list[str]
+    fallback_used: bool
+    agent_response_preview: str
+
+
 class RecruiterRequest(BaseModel):
     question: str = Field(min_length=3)
     company_name: str | None = None

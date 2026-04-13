@@ -7,6 +7,7 @@ const questionInput = document.getElementById("questionInput");
 const companyName = document.getElementById("companyName");
 const jobUrl = document.getElementById("jobUrl");
 const sendBtn = document.getElementById("sendBtn");
+const runJobSeekerBtn = document.getElementById("runJobSeekerBtn");
 const clearBtn = document.getElementById("clearBtn");
 const screenshotInput = document.getElementById("screenshotInput");
 const socialButtons = document.querySelectorAll(".social-btn");
@@ -22,7 +23,33 @@ function renderChat() {
   for (const item of chatHistory) {
     const bubble = document.createElement("div");
     bubble.className = `msg ${item.role}`;
-    bubble.textContent = item.content;
+    if (item.role === "assistant") {
+      const reportMatch = item.content.match(/^Job search report generated:\n(.+)$/s);
+      if (reportMatch) {
+        const label = document.createElement("div");
+        label.textContent = "Job search report generated:";
+
+        const pathLink = document.createElement("a");
+        pathLink.href = "#";
+        pathLink.textContent = reportMatch[1];
+        pathLink.addEventListener("click", async (event) => {
+          event.preventDefault();
+          const result = await sendRuntimeMessage({
+            type: "jobpilot:open-report",
+            reportPath: reportMatch[1],
+          });
+          if (!result?.ok) {
+            setStatus(`Could not open report: ${result?.error || "unknown error"}`);
+          }
+        });
+
+        bubble.append(label, pathLink);
+      } else {
+        bubble.textContent = item.content;
+      }
+    } else {
+      bubble.textContent = item.content;
+    }
     chatEl.appendChild(bubble);
   }
   chatEl.scrollTop = chatEl.scrollHeight;
@@ -43,6 +70,7 @@ function sendRuntimeMessage(message) {
 async function pollJob(jobId) {
   setStatus("Thinking...");
   sendBtn.disabled = true;
+  if (runJobSeekerBtn) runJobSeekerBtn.disabled = true;
 
   while (true) {
     const response = await sendRuntimeMessage({ type: "jobpilot:get-job", jobId });
@@ -57,16 +85,34 @@ async function pollJob(jobId) {
     await sendRuntimeMessage({ type: "jobpilot:clear-job", jobId });
 
     if (job.status === "done") {
-      addMessage("assistant", job.result.answer);
-      setStatus(`Used docs: ${job.result.used_context_files.join(", ") || "none"}`);
-      questionInput.value = "";
-      await saveState();
+      if (job.kind === "jobseeker") {
+        const reportPath = job.result?.report_path || "Unknown path";
+        const fallbackUsed = Boolean(job.result?.fallback_used);
+        const preview = (job.result?.agent_response_preview || "").trim();
+        addMessage("assistant", `Job search report generated:\n${reportPath}`);
+        addMessage(
+          "assistant",
+          fallbackUsed
+            ? "Report note: fallback wrapper was used because the agent response was not detected as full HTML."
+            : "Report note: full HTML response detected and saved."
+        );
+        if (preview) {
+          addMessage("assistant", `Agent response preview:\n${preview}`);
+        }
+        setStatus(`JobSeeker report ready: ${reportPath}`);
+      } else {
+        addMessage("assistant", job.result.answer);
+        setStatus(`Used docs: ${job.result.used_context_files.join(", ") || "none"}`);
+        questionInput.value = "";
+        await saveState();
+      }
     } else {
       addMessage("assistant", `Error: ${job.error || "Request failed"}`);
       setStatus("Request failed.");
     }
 
     sendBtn.disabled = false;
+    if (runJobSeekerBtn) runJobSeekerBtn.disabled = false;
     break;
   }
 }
@@ -227,6 +273,40 @@ clearBtn.addEventListener("click", async () => {
     await chrome.storage.local.remove(PENDING_JOB_KEY);
   }
   await saveState();
+});
+
+runJobSeekerBtn.addEventListener("click", async () => {
+  const companyNameValue = companyName.value.trim();
+  const jobUrlValue = jobUrl.value.trim();
+
+  const seedSummary = [
+    companyNameValue ? `company: ${companyNameValue}` : null,
+    jobUrlValue ? `job url: ${jobUrlValue}` : null,
+  ]
+    .filter(Boolean)
+    .join(" | ");
+
+  addMessage(
+    "user",
+    seedSummary
+      ? `Starting autonomous job search (${seedSummary})`
+      : "Starting autonomous job search"
+  );
+  setStatus("Thinking...");
+  runJobSeekerBtn.disabled = true;
+
+  try {
+    const started = await sendRuntimeMessage({ type: "jobpilot:start-jobseeker" });
+    if (!started?.ok || !started?.jobId) {
+      throw new Error("Unable to start jobseeker job");
+    }
+    await chrome.storage.local.set({ [PENDING_JOB_KEY]: started.jobId });
+    await pollJob(started.jobId);
+  } catch (error) {
+    addMessage("assistant", `Error: ${error.message}`);
+    setStatus("Request failed.");
+    runJobSeekerBtn.disabled = false;
+  }
 });
 
 sendBtn.addEventListener("click", async () => {
