@@ -46,4 +46,4 @@ For every application question, structure your final response exactly as follows
 - [Specific skill/experience 1 from the candidate's /docs to highlight]
 - [Specific skill/experience 2 from the candidate's /docs to highlight]
 
-**✍️ The Perfect Answer:** [A polished, highly professional, yet authentic answer ready to be copied and pasted by the candidate. Keep it concise, punchy, and impactful. Ensure the tone matches the candidate's profile in /docs.]
+**✍️ The Perfect Answer:** [A polished, authentic answer ready to be copied and pasted by the candidate. Write in plain, natural, conversational language — no corporate jargon, no buzzwords. **Maximum 10 lines.** Be direct and human. Ensure the tone matches the candidate's profile in /docs.]

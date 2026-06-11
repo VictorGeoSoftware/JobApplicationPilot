@@ -40,8 +40,10 @@ class JobSeekerAgent:
             "{\n"
             '  "executive_summary": "string",\n'
             '  "top_overall_matches": [job],\n'
-            '  "commercial_mobile_track": [job],\n'
-            '  "defense_aerospace_track": [job],\n'
+            '  "ai_fde_track": [job],\n'
+            '  "defense_military_track": [job],\n'
+            '  "android_core_track": [job],\n'
+            '  "profile_strengthening": ["string"],\n'
             '  "methodology": ["string"],\n'
             '  "notable_risks": ["string"],\n'
             '  "search_limitations": ["string"]\n'
@@ -52,7 +54,7 @@ class JobSeekerAgent:
             '  "company_description": "string",\n'
             '  "title": "string",\n'
             '  "role_category": "string",\n'
-            '  "track": "Commercial Mobile Track|Defense & Aerospace Track",\n'
+            '  "track": "AI-First / Forward Deployed Engineer|Defense & Military Tech|Android / Kotlin Core",\n'
             '  "work_model_location": "string",\n'
             '  "posted_date": "string",\n'
             '  "core_tech_stack": ["string"],\n'
@@ -61,6 +63,9 @@ class JobSeekerAgent:
             '  "confidence": "High|Medium|Low",\n'
             '  "clearance_status": "string"\n'
             "}\n"
+            "profile_strengthening must contain 3-6 specific, prioritized actions that close the gap "
+            "between the candidate's evidence and the recurring requirements seen in the live results "
+            "(especially defense/FDE/AI-First), including hardening Python and TypeScript into independent proficiency.\n"
             "If evidence is insufficient, keep fields explicit and add limitations rather than inventing facts.\n\n"
             f"Generation timestamp: {timestamp}\n\n"
             f"Live web-search evidence (must be used and cited in the report):\n{search_evidence}\n\n"
@@ -109,34 +114,44 @@ class JobSeekerAgent:
     async def _collect_search_evidence(self) -> tuple[str, list[dict[str, str]]]:
         queries = [
             (
-                "Commercial Mobile Track",
-                "Senior Mobile Engineer",
-                "Senior Mobile Engineer Remote Europe React Native Flutter jobs posted 2 days",
+                "AI-First / Forward Deployed Engineer",
+                "Forward Deployed Engineer",
+                "Forward Deployed Engineer remote Europe LLM AI agents customer-facing jobs posted 2 days",
             ),
             (
-                "Commercial Mobile Track",
-                "Mobile-First Full-Stack Engineer",
-                "Mobile Full Stack Engineer Remote Europe Rails Node Python jobs posted 2 days",
+                "AI-First / Forward Deployed Engineer",
+                "Applied AI Engineer",
+                "Applied AI Engineer remote EU LLM RAG MCP integration jobs posted 2 days",
             ),
             (
-                "Commercial Mobile Track",
-                "Lead / Staff Mobile Engineer",
-                "Lead Staff Mobile Engineer Remote Europe iOS Android jobs posted 2 days",
+                "AI-First / Forward Deployed Engineer",
+                "AI Product / LLM Engineer",
+                "LLM Engineer AI Product Engineer remote Europe TypeScript Python jobs posted 2 days",
             ),
             (
-                "Defense & Aerospace Track",
-                "Mobile-First Full-Stack Engineer",
-                "Defense aerospace full stack mobile engineer Sweden EU jobs posted 2 days",
+                "Defense & Military Tech",
+                "Defense Software Engineer",
+                "Defense military software engineer Kotlin backend remote Europe Sweden jobs posted 2 days",
             ),
             (
-                "Defense & Aerospace Track",
-                "Dedicated Mobile Software Engineer",
-                "Defense aerospace mobile software engineer Sweden EU jobs posted 2 days",
+                "Defense & Military Tech",
+                "Defense Forward Deployed / Field Engineer",
+                "Defense tech forward deployed field engineer Saab Helsing MilDef Anduril EU jobs posted 2 days",
             ),
             (
-                "Defense & Aerospace Track",
-                "Product / Web Engineer (mobile advantage)",
-                "Defense product web engineer mobile API Sweden EU jobs posted 2 days",
+                "Defense & Military Tech",
+                "Tactical / Situational-Awareness Engineer",
+                "Defense AI situational awareness tactical software engineer Sweden EU remote jobs posted 2 days",
+            ),
+            (
+                "Android / Kotlin Core",
+                "Senior / Staff Android Engineer",
+                "Senior Android Engineer Kotlin Jetpack Compose remote Europe jobs posted 2 days",
+            ),
+            (
+                "Android / Kotlin Core",
+                "Kotlin Backend / KMP Engineer",
+                "Kotlin Ktor backend Kotlin Multiplatform engineer remote EU jobs posted 2 days",
             ),
         ]
 
@@ -214,8 +229,10 @@ class JobSeekerAgent:
         return {
             "executive_summary": str(payload.get("executive_summary") or "No summary provided."),
             "top_overall_matches": self._normalize_jobs(payload.get("top_overall_matches"), "Top Overall Matches"),
-            "commercial_mobile_track": self._normalize_jobs(payload.get("commercial_mobile_track"), "Commercial Mobile Track"),
-            "defense_aerospace_track": self._normalize_jobs(payload.get("defense_aerospace_track"), "Defense & Aerospace Track"),
+            "ai_fde_track": self._normalize_jobs(payload.get("ai_fde_track"), "AI-First / Forward Deployed Engineer"),
+            "defense_military_track": self._normalize_jobs(payload.get("defense_military_track"), "Defense & Military Tech"),
+            "android_core_track": self._normalize_jobs(payload.get("android_core_track"), "Android / Kotlin Core"),
+            "profile_strengthening": self._normalize_string_list(payload.get("profile_strengthening"), "No strengthening actions provided."),
             "methodology": self._normalize_string_list(payload.get("methodology"), "Methodology unavailable."),
             "notable_risks": self._normalize_string_list(payload.get("notable_risks"), "No risks listed."),
             "search_limitations": self._normalize_string_list(payload.get("search_limitations"), "No limitations listed."),
@@ -264,12 +281,18 @@ class JobSeekerAgent:
 
     def _build_fallback_structured_payload(self, timestamp: str, evidence_rows: list[dict[str, str]], raw_response: str) -> dict:
         grouped: dict[str, list[dict[str, str | list[str]]]] = {
-            "commercial_mobile_track": [],
-            "defense_aerospace_track": [],
+            "ai_fde_track": [],
+            "defense_military_track": [],
+            "android_core_track": [],
         }
 
         for row in evidence_rows:
-            track_key = "defense_aerospace_track" if "Defense" in row["track"] else "commercial_mobile_track"
+            if "Defense" in row["track"]:
+                track_key = "defense_military_track"
+            elif "Android" in row["track"]:
+                track_key = "android_core_track"
+            else:
+                track_key = "ai_fde_track"
             grouped[track_key].append(
                 {
                     "company": row["title"],
@@ -287,17 +310,22 @@ class JobSeekerAgent:
                 }
             )
 
-        top_matches = (grouped["commercial_mobile_track"] + grouped["defense_aerospace_track"])[:6]
+        top_matches = (grouped["ai_fde_track"] + grouped["defense_military_track"] + grouped["android_core_track"])[:6]
         return {
             "executive_summary": (
                 "Fallback mode: The model did not return valid JSON, so this report is built directly from live web-search evidence. "
                 f"Generated at {timestamp}."
             ),
             "top_overall_matches": top_matches,
-            "commercial_mobile_track": grouped["commercial_mobile_track"],
-            "defense_aerospace_track": grouped["defense_aerospace_track"],
+            "ai_fde_track": grouped["ai_fde_track"],
+            "defense_military_track": grouped["defense_military_track"],
+            "android_core_track": grouped["android_core_track"],
+            "profile_strengthening": [
+                "Fallback mode: skill-gap coaching unavailable because the model did not return valid JSON.",
+                "Re-run the agent to generate prioritized Profile Strengthening actions.",
+            ],
             "methodology": [
-                "Collected evidence from predefined query set for commercial and defense tracks.",
+                "Collected evidence from the predefined query set for AI/FDE, defense, and Android tracks.",
                 "Rendered deterministic HTML from normalized payload structure.",
             ],
             "notable_risks": [
@@ -353,8 +381,10 @@ class JobSeekerAgent:
 
         summary = escape(str(payload.get("executive_summary") or "No summary provided."))
         top_matches = payload.get("top_overall_matches") if isinstance(payload.get("top_overall_matches"), list) else []
-        commercial = payload.get("commercial_mobile_track") if isinstance(payload.get("commercial_mobile_track"), list) else []
-        defense = payload.get("defense_aerospace_track") if isinstance(payload.get("defense_aerospace_track"), list) else []
+        ai_fde = payload.get("ai_fde_track") if isinstance(payload.get("ai_fde_track"), list) else []
+        defense = payload.get("defense_military_track") if isinstance(payload.get("defense_military_track"), list) else []
+        android_core = payload.get("android_core_track") if isinstance(payload.get("android_core_track"), list) else []
+        profile_strengthening = self._normalize_string_list(payload.get("profile_strengthening"), "No strengthening actions provided.")
         methodology = self._normalize_string_list(payload.get("methodology"), "Methodology unavailable.")
         risks = self._normalize_string_list(payload.get("notable_risks"), "No risks listed.")
         limitations = self._normalize_string_list(payload.get("search_limitations"), "No limitations listed.")
@@ -387,13 +417,18 @@ class JobSeekerAgent:
             f"        {render_jobs(top_matches, show_clearance=True)}\n"
             "      </section>\n"
             "      <section>\n"
-            "        <h2>Commercial Mobile Track</h2>\n"
-            f"        {render_jobs(commercial, show_clearance=False)}\n"
+            "        <h2>AI-First / Forward Deployed Engineer</h2>\n"
+            f"        {render_jobs(ai_fde, show_clearance=False)}\n"
             "      </section>\n"
             "      <section>\n"
-            "        <h2>Defense & Aerospace Track</h2>\n"
+            "        <h2>Defense & Military Tech</h2>\n"
             f"        {render_jobs(defense, show_clearance=True)}\n"
             "      </section>\n"
+            "      <section>\n"
+            "        <h2>Android / Kotlin Core</h2>\n"
+            f"        {render_jobs(android_core, show_clearance=False)}\n"
+            "      </section>\n"
+            f"      {render_list('Profile Strengthening', profile_strengthening)}\n"
             f"      {render_list('Methodology', methodology)}\n"
             f"      {render_list('Notable Risks / Caveats', risks)}\n"
             f"      {render_list('Search Limitations', limitations)}\n"

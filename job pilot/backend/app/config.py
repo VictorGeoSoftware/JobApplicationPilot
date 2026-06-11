@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     max_context_chunks: int = 6
     max_question_logs: int = 500
     web_search_verify_ssl: bool = True
+    tavily_api_key: str = ""
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]

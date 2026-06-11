@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import html
 import re
 from urllib.parse import parse_qs, unquote, urlparse
 
@@ -18,8 +19,19 @@ class SearchHit:
 
 class WebSearchService:
     def __init__(self) -> None:
-        self.search_url = "https://duckduckgo.com/html/"
+        self.search_url = "https://html.duckduckgo.com/html/"
+        self.tavily_url = "https://api.tavily.com/search"
+        self.tavily_api_key = settings.tavily_api_key.strip()
         self.verify_ssl = settings.web_search_verify_ssl
+        self.headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+            ),
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
 
     async def search_company(self, company_name: str | None, job_url: str | None) -> str:
         subject = (company_name or "").strip() or self._infer_company_from_url(job_url)
@@ -39,8 +51,47 @@ class WebSearchService:
         return "\n".join(f"- {hit.title} ({hit.url})" for hit in hits)
 
     async def search(self, query: str, limit: int = 5) -> list[SearchHit]:
-        async with httpx.AsyncClient(timeout=12.0, verify=self.verify_ssl) as client:
-            response = await client.get(self.search_url, params={"q": query})
+        if self.tavily_api_key:
+            try:
+                hits = await self._search_tavily(query, limit)
+                if hits:
+                    return hits
+            except Exception:
+                pass
+        return await self._search_duckduckgo(query, limit)
+
+    async def _search_tavily(self, query: str, limit: int) -> list[SearchHit]:
+        payload = {
+            "query": query,
+            "max_results": limit,
+            "search_depth": "basic",
+        }
+        headers = {
+            "Authorization": f"Bearer {self.tavily_api_key}",
+            "Content-Type": "application/json",
+        }
+        async with httpx.AsyncClient(timeout=20.0, verify=self.verify_ssl) as client:
+            response = await client.post(self.tavily_url, json=payload, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+
+        hits: list[SearchHit] = []
+        for item in data.get("results", []):
+            title = self._strip_tags(str(item.get("title") or ""))
+            url = str(item.get("url") or "")
+            snippet = self._strip_tags(str(item.get("content") or ""))
+            if title and url:
+                hits.append(SearchHit(title=title, url=url, snippet=snippet))
+        return hits[:limit]
+
+    async def _search_duckduckgo(self, query: str, limit: int) -> list[SearchHit]:
+        async with httpx.AsyncClient(
+            timeout=12.0,
+            verify=self.verify_ssl,
+            follow_redirects=True,
+            headers=self.headers,
+        ) as client:
+            response = await client.post(self.search_url, data={"q": query})
         response.raise_for_status()
         hits = self._extract_hits(response.text)
         return hits[:limit]
@@ -70,6 +121,8 @@ class WebSearchService:
                 continue
 
             url = self._normalize_duckduckgo_href(raw_href)
+            if self._is_ad_link(raw_href, url):
+                continue
             snippet = self._strip_tags(snippets[idx]) if idx < len(snippets) else ""
             hits.append(SearchHit(title=title, url=url, snippet=snippet))
 
@@ -90,6 +143,11 @@ class WebSearchService:
         target = query.get("uddg", [""])[0]
         return unquote(target) if target else href
 
+    def _is_ad_link(self, raw_href: str, url: str) -> bool:
+        markers = ("y.js", "ad_domain=", "ad_provider=", "duckduckgo.com/y")
+        candidate = f"{raw_href} {url}".lower()
+        return any(marker in candidate for marker in markers)
+
     def _strip_tags(self, value: str) -> str:
         plain = re.sub(r"<[^>]+>", "", value)
-        return " ".join(plain.split())
+        return " ".join(html.unescape(plain).split())

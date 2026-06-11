@@ -1,21 +1,33 @@
 # JobSeeker
 
-`JobSeeker` is a trigger-driven autonomous job-search agent specification intended for a Koog implementation.
+`JobSeeker` is a single trigger-driven autonomous job-search and career-coaching agent for Victor Palma Carrasco. It replaces the previous three separate recruiter briefs (mobile, defense, AI) with one unified agent.
 
 ## Purpose
 
 When triggered from the `job pilot` browser extension, the agent should:
 
-- run a live job search,
-- apply the candidate-fit and geography constraints,
-- combine the commercial mobile and defense/aerospace search tracks,
-- and generate a standalone HTML report in this folder.
+- run a live job search across three tracks,
+- apply the candidate-fit, fully-remote, and geography/eligibility constraints,
+- and generate a standalone HTML report in this folder including a Profile Strengthening coaching section.
+
+## Search Tracks
+
+- **AI-First / Forward Deployed Engineer** — FDE, Applied AI, LLM Engineer, AI Product Engineer.
+- **Defense & Military Tech** — defense/armament/aerospace software, forward-deployed/field engineering, tactical/situational-awareness systems (flags clearance/citizenship).
+- **Android / Kotlin Core** (fallback) — Senior/Staff Android, Kotlin/Ktor backend, KMP.
+
+## Capabilities
+
+- **Opportunity sourcing** — strongest recent, realistically-applicable remote roles per track.
+- **Profile strengthening** — prioritized, specific actions to close gaps versus target-role requirements (e.g. hardening Python/TypeScript into independent proficiency, defense-domain credibility, FDE positioning).
 
 ## Primary Files
 
-- `KOOG_AGENT_PROMPT.md` - master prompt for the Koog agent
-- `AGENT_INSTRUCTIONS.md` - appended instruction set including both recruiter briefs
-- `job_search_report.html` - expected generated output file
+- `KOOG_AGENT_PROMPT.md` - master prompt for the single agent (real profile + 3 tracks + coaching)
+- `AGENT_INSTRUCTIONS.md` - consolidated appended instruction set
+- `job_search_report.html` - generated output file
+
+The live engine lives in the backend at `../job pilot/backend/app/services/job_seeker_agent.py`, which reads these two files and renders the report.
 
 ## Trigger Contract
 

@@ -1,34 +1,297 @@
-```json
 {
-  "executive_summary": "All live web search queries failed due to HTTP 302 redirects from DuckDuckGo. No job postings were retrieved. This report documents the search failure and provides methodology that would have been applied. Zero jobs are included because no evidence was obtained. This is a complete search infrastructure failure, not a lack of available positions.",
-  "top_overall_matches": [],
-  "commercial_mobile_track": [],
-  "defense_aerospace_track": [],
+  "executive_summary": "Using the provided live-search evidence, the strongest realistic opportunities are concentrated in AI-first and forward-deployed roles that are explicitly remote in Europe or worldwide, with Camunda and 2501 standing out as the best-fit matches for Victor Palma Carrasco’s combination of shipped AI-agent systems, backend depth, and customer-facing delivery potential. Defense-tech results were materially weaker under the remote-Europe constraint: available evidence surfaced Anduril forward-deployed roles, but those appear heavily field-based and likely constrained by geography, travel, and national-security eligibility rather than clean Sweden/EU remote applicability. The fallback Android/Kotlin market remains viable and high-confidence, especially for senior Android contract or product roles using Kotlin and Jetpack Compose, but the evidence set is less fresh and often aggregator-based. Overall recommendation: prioritize AI-first/FDE applications immediately, keep Android/Kotlin as a strong hedge, and deliberately strengthen independently demonstrable Python and TypeScript proficiency plus explicit solutions-engineering/FDE narrative in the CV and portfolio.",
+  "top_overall_matches": [
+    {
+      "company": "Camunda",
+      "company_description": "Enterprise orchestration platform company positioning itself around agentic orchestration of AI agents, people, and systems for production business processes.",
+      "title": "AI Process Forward Deployed Engineer",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Fully remote, global/worldwide",
+      "posted_date": "Posted 5 days ago",
+      "core_tech_stack": [
+        "AI agents",
+        "agentic orchestration",
+        "enterprise workflow/process systems",
+        "customer deployment",
+        "governance",
+        "auditability"
+      ],
+      "direct_link": "https://euremotejobs.com/job/ai-process-forward-deployed-engineer",
+      "why_match": "This is the clearest overall fit: it explicitly combines AI-first delivery, enterprise deployment ownership, and customer-facing implementation. Victor’s shipped production work with MCP servers, Koog AI agents, RAG, automation, and backend systems maps directly to taking AI systems from pilot to production for customers.",
+      "confidence": "High",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "2501",
+      "company_description": "AI company building autonomous agents that operate directly in the shell.",
+      "title": "Forward Deployed Engineer",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Remote, EU",
+      "posted_date": "Posted March 3, 2026",
+      "core_tech_stack": [
+        "autonomous AI agents",
+        "shell automation",
+        "customer deployment",
+        "remote EU"
+      ],
+      "direct_link": "https://www.2501.ai/jobs/forward-engineer---fulltime-remote-eu",
+      "why_match": "Strong thematic alignment with Victor’s AI-native systems work and backend orientation. The remote-EU model is directly compatible with Sweden, and the role likely values practical implementation of AI agents more than pure ML research pedigree.",
+      "confidence": "High",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "Inkeep",
+      "company_description": "AI agent platform focused on customer support and embedded AI experiences for technical and non-technical teams.",
+      "title": "Forward Deployed Engineer, AI Agents",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Location type mentioned; exact Europe/Sweden eligibility not clearly evidenced in provided snippet",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "AI agents",
+        "embedded AI experiences",
+        "customer-facing deployment",
+        "technical support workflows"
+      ],
+      "direct_link": "https://jobs.ashbyhq.com/inkeep/f277f68d-c397-4919-beeb-67ee1e19dc91",
+      "why_match": "The role centers on high-touch deployment of AI agents into customer-facing and internal workflows, which matches Victor’s combination of production AI delivery and product engineering. The main caution is incomplete evidence on Europe/Sweden eligibility from the provided result.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    }
+  ],
+  "ai_fde_track": [
+    {
+      "company": "Camunda",
+      "company_description": "Enterprise orchestration platform company positioning itself around agentic orchestration of AI agents, people, and systems for production business processes.",
+      "title": "AI Process Forward Deployed Engineer",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Fully remote, global/worldwide",
+      "posted_date": "Posted 5 days ago",
+      "core_tech_stack": [
+        "AI agents",
+        "agentic orchestration",
+        "enterprise workflow/process systems",
+        "customer deployment",
+        "governance",
+        "auditability"
+      ],
+      "direct_link": "https://euremotejobs.com/job/ai-process-forward-deployed-engineer",
+      "why_match": "Exceptionally aligned with Victor’s profile: enterprise AI deployment, productionization, orchestration, and handoff to customer teams. His 0→production Volvo AI assistant, MCP/agent infrastructure, and backend delivery are unusually relevant here.",
+      "confidence": "High",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "2501",
+      "company_description": "AI company building autonomous agents that operate directly in the shell.",
+      "title": "Forward Deployed Engineer",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Remote, EU",
+      "posted_date": "Posted March 3, 2026",
+      "core_tech_stack": [
+        "autonomous AI agents",
+        "shell automation",
+        "customer deployment",
+        "remote EU"
+      ],
+      "direct_link": "https://www.2501.ai/jobs/forward-engineer---fulltime-remote-eu",
+      "why_match": "Good fit for an engineer who can bridge product, backend systems, and AI-agent implementation. Victor’s practical AI-native tooling experience is more relevant than deep model-training experience for this style of role.",
+      "confidence": "High",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "Inkeep",
+      "company_description": "AI platform company enabling customers to embed AI agents into support, documentation, and internal workflows.",
+      "title": "Forward Deployed Engineer, AI Agents",
+      "role_category": "Forward Deployed Engineer",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Location type mentioned; Europe/Sweden remote eligibility not explicit in provided evidence",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "AI agents",
+        "customer-facing integrations",
+        "support workflows",
+        "embedded AI experiences"
+      ],
+      "direct_link": "https://jobs.ashbyhq.com/inkeep/f277f68d-c397-4919-beeb-67ee1e19dc91",
+      "why_match": "Strong functional fit because the role emphasizes working closely with technical and business stakeholders to deploy reliable AI systems. Victor’s mix of engineering breadth and AI implementation experience is relevant, but location evidence is incomplete.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "ElevenLabs",
+      "company_description": "AI voice technology company with an enterprise deployment team focused on impactful technical solutions.",
+      "title": "Deployment Strategist – Europe",
+      "role_category": "Deployment / Solutions Engineering",
+      "track": "AI-First / Forward Deployed Engineer",
+      "work_model_location": "Remote, Europe (including Sweden per provided listing extract)",
+      "posted_date": "Posted 3 weeks ago",
+      "core_tech_stack": [
+        "AI voice technology",
+        "deployment strategy",
+        "enterprise solutions"
+      ],
+      "direct_link": "https://euremotejobs.com/job/forward-deployed-engineer-strategist-europe",
+      "why_match": "Less engineering-explicit than the top three, but still relevant as an FDE-adjacent role in Europe with deployment emphasis. Victor could fit if the role leans technical implementation rather than pre-sales only.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    }
+  ],
+  "defense_military_track": [
+    {
+      "company": "Anduril Industries",
+      "company_description": "Defense technology company building advanced autonomy, AI, computer vision, sensor fusion, and networking systems for military and allied customers.",
+      "title": "Forward Deployed Engineer, Mission Autonomy",
+      "role_category": "Forward Deployed / Technical Operations Engineer",
+      "track": "Defense & Military Tech",
+      "work_model_location": "Field-deployed role; exact Sweden/EU remote applicability not evidenced in provided snippet",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "autonomy",
+        "AI",
+        "computer vision",
+        "sensor fusion",
+        "networking",
+        "hardware/software deployment"
+      ],
+      "direct_link": "https://www.tealhq.com/job/forward-deployed-engineer_7ea1a84ba555c367ee549bb8777ac0b8ebd77",
+      "why_match": "This is the most mission-aligned defense result in the evidence set because it combines forward deployment and advanced AI systems. Victor’s AI-native and backend/product delivery background is directionally relevant, but the role appears highly field/hardware oriented and may present eligibility and travel barriers.",
+      "confidence": "Medium",
+      "clearance_status": "Likely defense/customer eligibility constraints; exact clearance or citizenship requirement not specified in provided snippet"
+    },
+    {
+      "company": "Anduril Industries",
+      "company_description": "Defense technology company delivering software and hardware for national security missions.",
+      "title": "Forward Deployed Engineer, Air Defense (FDE)",
+      "role_category": "Forward Deployed / Technical Operations Engineer",
+      "track": "Defense & Military Tech",
+      "work_model_location": "Likely field-based; no clear remote-Europe evidence in provided snippet",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "air defense systems",
+        "deployment operations",
+        "field engineering",
+        "defense software/hardware"
+      ],
+      "direct_link": "https://www.linkedin.com/jobs/view/forward-deployed-engineer-air-defense-fde-at-anduril-industries-4375609919",
+      "why_match": "Relevant because it hits Victor’s defense/FDE priority directly, but practical fit is weaker than AI-first commercial FDE roles due to probable travel, hardware emphasis, and possible citizenship or clearance limitations not clarified in the supplied evidence.",
+      "confidence": "Low",
+      "clearance_status": "Not explicitly stated in provided evidence; defense access restrictions are a material risk"
+    }
+  ],
+  "android_core_track": [
+    {
+      "company": "P&P Solutions",
+      "company_description": "Engineering services firm delivering digital applications and infrastructure work for large consumer-facing media and entertainment clients in Europe.",
+      "title": "Senior Android Engineer",
+      "role_category": "Senior Android Engineer",
+      "track": "Android / Kotlin Core",
+      "work_model_location": "Location not fully established as remote in provided snippet",
+      "posted_date": "Start ASAP; project kickoff planned for April 2026",
+      "core_tech_stack": [
+        "Kotlin",
+        "Jetpack Compose",
+        "CI/CD",
+        "observability",
+        "performance monitoring",
+        "unit testing",
+        "UI testing"
+      ],
+      "direct_link": "https://justjoin.it/job-offer/p-p-solutions-senior-android-engineer-gdansk-mobile",
+      "why_match": "Very strong technical fit to Victor’s deepest proven capability: Kotlin, Compose, high-scale consumer app engineering, and quality practices. Confidence is reduced only because the provided evidence does not clearly confirm fully remote Sweden/EU eligibility.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "Jobgether",
+      "company_description": "Remote-job platform surfacing distributed engineering contract roles.",
+      "title": "Contract Android Engineer (Kotlin) (Remote - EU)",
+      "role_category": "Android Engineer",
+      "track": "Android / Kotlin Core",
+      "work_model_location": "Remote, EU",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "Kotlin",
+        "Java",
+        "Android SDK",
+        "Jetpack Compose",
+        "Agile"
+      ],
+      "direct_link": "https://www.linkedin.com/jobs/view/contract-android-engineer-kotlin-remote-eu-at-jobgether-4295524788",
+      "why_match": "High core-skill alignment and clean remote-EU compatibility. This is a strong fallback opportunity if Victor wants a role tightly aligned to his strongest evidence while continuing to pursue AI-first positions.",
+      "confidence": "High",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "Theirstack listing via beBee",
+      "company_description": "Aggregator-surfaced contract opportunity for a high-traffic consumer Android app.",
+      "title": "Senior Android Engineer (Contract)",
+      "role_category": "Senior Android Engineer",
+      "track": "Android / Kotlin Core",
+      "work_model_location": "Remote (UK)",
+      "posted_date": "Date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Coroutines",
+        "Flow",
+        "high-traffic consumer app"
+      ],
+      "direct_link": "https://bebee.com/gb/jobs/senior-android-engineer-contract-kotlin-jetpack-compose-coroutines-flow-high-traffic-consumer-app-40--theirstack-674556691",
+      "why_match": "Technically excellent fit based on Victor’s Android/Kotlin depth and experience on a 2M+ user app. Confidence is lower because it is aggregator-based and the UK-focused setup may create engagement or tax/contracting complexity from Sweden.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "WeEngage Group B Corp",
+      "company_description": "Recruitment/intermediary listing for a remote EU senior Kotlin backend contract.",
+      "title": "Senior Kotlin Engineer (Freelance)",
+      "role_category": "Kotlin Backend Engineer",
+      "track": "Android / Kotlin Core",
+      "work_model_location": "Remote in the EU",
+      "posted_date": "6-month contract; date not clearly evidenced in provided snippet",
+      "core_tech_stack": [
+        "Kotlin",
+        "backend engineering",
+        "global infrastructure"
+      ],
+      "direct_link": "https://www.linkedin.com/jobs/view/senior-kotlin-engineer-freelance-at-weengage-group-b-corp%E2%84%A2-4380097866",
+      "why_match": "This aligns with Victor’s second-deepest proven area: Kotlin backend engineering. It is weaker than the Android roles only because the evidence snippet does not confirm Ktor specifically and comes through an intermediary listing.",
+      "confidence": "Medium",
+      "clearance_status": "Not specified"
+    }
+  ],
+  "profile_strengthening": [
+    "1) Build and publish one production-grade Python AI service end-to-end within 2 weeks, then feature it prominently on the CV and GitHub. Target stack: FastAPI, async Python, Pydantic, background jobs, vector/RAG integration, OpenAI/Anthropic abstraction, observability, tests, Docker, and CI. Live results repeatedly point to Python as a common requirement for AI Engineer and LLM roles, and Victor currently describes Python as AI-assisted rather than independently strong.",
+    "2) Build a second portfolio project in TypeScript that proves independent depth rather than assisted use: a full-stack AI product with Next.js, Node.js, typed API contracts, streaming responses, tool-calling, auth, persistence, and evaluation/telemetry. Several AI-role aggregations explicitly reference Python or TypeScript/Node.js, so Victor should show one repo where TypeScript is clearly first-class and not subordinate to Kotlin.",
+    "3) Reframe the CV and LinkedIn around 'Forward Deployed Engineer' evidence, not only 'Senior Software Engineer'. Add 3 concise bullets that show customer-facing deployment, ambiguous requirements handling, adoption ownership, and handoff to client/product teams. Camunda, Inkeep, and similar roles are looking for engineers who can deploy, customize, and operationalize systems with customers, not just implement features internally.",
+    "4) Add a defense-credibility layer without overstating background: publish a short technical write-up or demo project on secure/offline-capable field systems, edge-first Android or Kotlin services, resilient sync, role-based access, and auditability. Defense-track evidence was thin and structurally constrained, so Victor needs visible domain adjacency to become more credible for Nordic/EU defense software roles.",
+    "5) Prepare a targeted 'eligibility and deployment' note for applications: Sweden-based, EU candidate, open to travel within Europe, no current clearance unless obtained through employer sponsorship. Defense listings in the evidence set carry likely but not explicit access restrictions, so proactively clarifying geography, citizenship/work eligibility, and travel willingness will reduce recruiter uncertainty.",
+    "6) Surface missing keywords directly in profile materials: 'Applied AI Engineer', 'Forward Deployed Engineer', 'AI Agents', 'RAG', 'MCP', 'customer deployment', 'solutions engineering', 'TypeScript/Node.js', 'Python/FastAPI', 'observability', and 'enterprise AI productionization'. Current evidence suggests the raw experience is relevant, but discoverability may lag because the narrative still reads primarily Android/backend-first."
+  ],
   "methodology": [
-    "Attempted 6 parallel live web searches across both Commercial Mobile and Defense/Aerospace tracks",
-    "Targeted roles: Senior Mobile Engineer, Mobile-First Full-Stack Engineer, Lead/Staff Mobile Engineer (Commercial); Mobile-First Full-Stack, Dedicated Mobile, Product/Web Engineer with mobile advantage (Defense)",
-    "Applied 48-hour recency filter to all queries",
-    "Geographic constraints: Remote Europe preferred, Sweden/EU eligibility mandatory, Gothenburg hybrid only if exceptional",
-    "Ranking criteria: T-shaped mobile/full-stack fit, remote friendliness, seniority/compensation, product quality, recency, application clarity",
-    "Planned deduplication across job boards and company career pages",
-    "Intended to validate postings against official company sources where possible"
+    "Used only the supplied live web-search evidence and did not invent additional postings, dates, or stack details.",
+    "Ranked roles by remote-in-Europe compatibility first, then by alignment to Victor’s stated priorities: defense/military, Forward Deployed Engineer, and AI-first product engineering.",
+    "Preferred official or direct application links when available; retained aggregator/intermediary links only when they contained concrete role evidence and the fit was still strong.",
+    "Deduplicated overlapping themes across tracks and elevated the strongest roles into Top Overall Matches.",
+    "Lowered confidence where Europe/Sweden eligibility, exact posting date, or stack details were unclear in the provided evidence.",
+    "Kept defense roles despite weaker evidence only when they materially matched Victor’s stated priority, while explicitly flagging likely clearance, geography, and field-deployment risks."
   ],
   "notable_risks": [
-    "Complete search infrastructure failure means zero visibility into current market opportunities",
-    "Cannot assess whether strong matches exist in the 48-hour window",
-    "Cannot validate posting dates, tech stacks, or remote policies",
-    "Defense roles requiring security clearance or Swedish citizenship cannot be flagged without search results",
-    "Candidate may be missing time-sensitive opportunities during this outage"
+    "Freshness is weaker than ideal: several strong matches are older than the preferred 48-hour window, and some dates were unavailable in the provided evidence.",
+    "Defense-tech roles in the evidence set are not clean remote-Europe matches and may require extensive travel, field work, or country-specific access constraints.",
+    "Some AI-role evidence came from job aggregators rather than fully validated company career pages, which reduces certainty on exact location and hiring status.",
+    "Victor’s strongest proven evidence remains Kotlin/Android/backend; some AI-first roles may prefer stronger independently demonstrated Python or TypeScript depth than is currently obvious on paper.",
+    "Anduril and similar defense roles may be compelling thematically but can be unrealistic without explicit confirmation of EU applicability, travel expectations, and security eligibility."
   ],
   "search_limitations": [
-    "All 6 DuckDuckGo search queries returned HTTP 302 redirects instead of results",
-    "Commercial Mobile Track: 3 queries failed (Senior Mobile Engineer, Mobile-First Full-Stack, Lead/Staff Mobile)",
-    "Defense & Aerospace Track: 3 queries failed (Mobile-First Full-Stack, Dedicated Mobile, Product/Web Engineer)",
-    "No fallback search provider was available in this execution context",
-    "No cached or historical data was used (per instruction to avoid fabrication)",
-    "Unable to access LinkedIn Jobs, Wellfound, The Hub, Karriär.se, or company career pages",
-    "Unable to verify any posting dates, tech stacks, work models, or clearance requirements",
-    "Report generation timestamp: 2026-04-13 06:11 UTC, but no jobs were discovered"
+    "No broad live browsing beyond the supplied evidence set was possible here, so the results are constrained to the listings and snippets provided.",
+    "Several listings lacked exact posting date, exact stack, or explicit Sweden/EU eligibility; those fields are marked conservatively rather than inferred.",
+    "The defense track was especially limited by scarce remote-Europe evidence in the supplied results, so that section is thinner and lower confidence than the AI-first and Android tracks.",
+    "Some links point to aggregators or reposts, which may lag the source career page or omit important details such as visa, clearance, or work-model restrictions.",
+    "Because official company-page validation was not available for every listing in the evidence set, confidence ratings reflect evidence quality as much as role fit."
   ]
 }
-```
