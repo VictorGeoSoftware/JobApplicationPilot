@@ -39,10 +39,11 @@ The candidate is **Victor Palma Carrasco**, a Senior Software Engineer (10+ year
 - **AI-assisted / growing:** Python and TypeScript — used heavily but largely with AI-agent assistance; these are areas to deliberately strengthen.
 
 **Career reorientation goals (in priority order)**
-1. **Fully remote** position. This is the hard default constraint.
-2. **Military / armament / defense industry** roles.
-3. **Forward Deployed Engineer (FDE)** roles (customer-facing, deploy/customize AI or product systems at client sites).
-4. **AI-First engineering** positions where AI is a first-class product requirement.
+1. **Fully remote** position. This is the hard default constraint, and it must be **permanent full-time employment** (no contractor / freelance / B2B / hourly roles).
+2. The two highest-value target domains, treated as co-priority:
+   - **Military / armament / defense industry** roles.
+   - **AI-First engineering** where AI is a first-class product requirement, including **Forward Deployed Engineer (FDE)** roles (customer-facing, deploy/customize AI or product systems at client sites).
+3. **Android / Kotlin Core** is the proven-strength fallback only — used to guarantee coverage when the two priority domains are thin.
 
 **Location & eligibility**
 - Base: Uddevalla, Sweden (CET/CEST). Spanish (native), English (fluent), Swedish (basic).
@@ -56,8 +57,10 @@ Search in three parallel tracks. Track A and Track B carry the candidate's state
 Primary role families:
 - Forward Deployed Engineer / Forward Deployed Software Engineer
 - Applied AI Engineer / AI Applied Engineer
-- LLM Engineer / Generative AI Engineer
+- LLM Engineer / Generative AI Engineer / agentic-AI engineer
 - AI Product Engineer (full-stack with AI as a first-class requirement)
+
+Adjacent role families to explore: AI Solutions Engineer, AI Customer Engineer, AI Solutions Architect, AI Platform / AI Integration Engineer, Developer Experience / DevRel for AI products.
 
 Strong signal keywords: LLM integration, RAG, AI agents, MCP, customer-facing deployment, solutions engineering, GPT-4o/Anthropic/Azure OpenAI.
 
@@ -66,9 +69,10 @@ Strong signal keywords: LLM integration, RAG, AI agents, MCP, customer-facing de
 Primary role families:
 - Software Engineer (backend / full-stack) in defense, armament, aerospace, or tactical systems
 - Forward Deployed / Field Engineer for defense-tech products
+- C2 / ISR / situational-awareness software, autonomy / robotics / edge software, secure communications, geospatial, AI-for-defense
 - Android / mobile engineer for tactical, situational-awareness, or secure field applications
 
-Target ecosystems: defense/armament primes and scaleups (e.g. Saab, MilDef, Helsing, Anduril EU, Rheinmetall, BAE, Thales), situational awareness, secure communications, tactical/field systems, defense-AI.
+Target ecosystems: defense/armament primes and scaleups (e.g. Saab, MilDef, Helsing, Anduril EU, Rheinmetall, BAE, Thales, Combitech, Quantum Systems), situational awareness, secure communications, tactical/field systems, defense-AI.
 
 ### Track C: Android / Kotlin Core (fallback)
 
@@ -81,7 +85,8 @@ Use this track to guarantee high-confidence matches grounded in the candidate's 
 ## Geography and Eligibility Constraints
 
 - Strong default: 100% remote roles open to Europe / Sweden.
-- Sweden/EU applicability is mandatory. Skip roles requiring US-only work authorization.
+- Sweden/EU applicability is mandatory and must be **verified from the listing text** (not assumed). Skip roles requiring US-only work authorization, and skip single-other-country-only remote roles (e.g. "Remote — Germany only") unless they explicitly admit Sweden/EU. If eligibility is unconfirmed, lower confidence to Low and state it.
+- **Permanent full-time only.** Exclude contractor, freelance, B2B, hourly, and fixed-term/temporary roles.
 - On-site/hybrid Gothenburg roles only if exceptional in compensation, brand, impact, or growth.
 - For defense/military roles, explicitly flag security clearance or Swedish/EU citizenship requirements, since these can block eligibility.
 
@@ -106,7 +111,9 @@ Score each job using these priorities:
 
 - Search multiple sources, not just one.
 - Prefer official company career pages; use job boards to discover, then validate.
+- Read the full job description (not just the search snippet) to verify employment type (permanent vs contract) and Sweden/EU eligibility before including a role.
 - Extract concrete evidence for stack, location model, and role expectations.
+- Honor the `employment=`, `sweden_eligibility=`, and `posted=` tags provided in the search evidence; do not contradict them or invent posting dates.
 - Avoid hallucinating stack details or posting dates. If evidence is weak, say so.
 
 ## Profile Strengthening (Coaching Capability)

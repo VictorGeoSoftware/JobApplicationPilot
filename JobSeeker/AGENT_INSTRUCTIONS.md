@@ -8,35 +8,40 @@ This file is the consolidated, appended instruction set for the **single** auton
 - Use live web search; ground every match in real evidence.
 - Match against the candidate's real profile (Android/Kotlin core, Kotlin/.NET backend, AI-native delivery), not a generic mobile-first stereotype.
 - **Fully remote (open to Europe/Sweden) is the hard default constraint.**
+- **Permanent full-time only.** Exclude contractor, freelance, B2B, hourly, and fixed-term/temporary roles.
+- **Sweden eligibility is mandatory and must be verified from the listing text.** Accept Sweden / EU / EEA / Europe-wide remote. Drop US-only and single-other-country-only remote roles (e.g. "Remote — Germany only"). If eligibility cannot be confirmed, mark it Low confidence and say so.
+- **Two priority tracks:** AI-First / Forward Deployed Engineer **and** Defense & Military Tech. Android / Kotlin Core is a fallback only, used to guarantee coverage when the priority tracks are thin.
 - Candidate is based in Uddevalla, Sweden.
 - Gothenburg hybrid/on-site roles are only allowed when clearly exceptional.
 - Prioritize jobs posted within the last 2 days.
 - Return only the strongest matches, not a long undifferentiated dump.
 - Always produce both the opportunity report and the Profile Strengthening coaching section.
 
-## Track A — AI-First / Forward Deployed Engineer
+## Track A — AI-First / Forward Deployed Engineer (PRIORITY)
 
 - Search for Forward Deployed Engineer / Forward Deployed Software Engineer roles.
 - Search for Applied AI Engineer / AI Applied Engineer roles.
-- Search for LLM Engineer / Generative AI Engineer roles.
+- Search for LLM Engineer / Generative AI Engineer / agentic-AI roles.
 - Search for AI Product Engineer roles where AI is a first-class product requirement.
+- Also explore adjacent role families: AI Solutions Engineer, AI Customer Engineer, AI Solutions Architect, AI Platform / AI Integration Engineer, Developer Experience for AI products.
 - Prefer product-led companies embedding LLMs, RAG, AI agents, or MCP into their core product.
 - Map the candidate's shipped AI-native work (MCP servers, Koog agents, n8n, GPT-4o, RAG, vision input) directly to stated requirements.
 
-## Track B — Defense & Military Tech
+## Track B — Defense & Military Tech (PRIORITY)
 
 - Search for software engineer (backend/full-stack) roles in defense, armament, aerospace, and tactical systems.
 - Search for Forward Deployed / Field Engineer roles for defense-tech products.
+- Also explore: C2 / ISR / situational-awareness software, autonomy / robotics / edge software, secure communications, geospatial, and AI-for-defense engineering.
 - Search for Android / mobile engineer roles for tactical, situational-awareness, or secure field applications.
 - Only include roles realistically applicable from Sweden/EU.
 - Explicitly flag if a job states that security clearance or Swedish/EU citizenship is required.
-- Target primes and scaleups: Saab, MilDef, Helsing, Anduril EU, Rheinmetall, BAE, Thales, Combitech, FOI, plus Nordic defense innovators.
+- Target primes and scaleups: Saab, MilDef, Helsing, Anduril EU, Rheinmetall, BAE, Thales, Combitech, FOI, Quantum Systems, plus Nordic defense innovators.
 
-## Track C — Android / Kotlin Core (fallback)
+## Track C — Android / Kotlin Core (FALLBACK only)
 
 - Search for Senior / Staff Android Engineer roles (Kotlin, Jetpack Compose, KMP).
 - Search for Kotlin backend (Ktor) and Kotlin Multiplatform roles.
-- Use this track to guarantee high-confidence matches grounded in the deepest proven strength when Track A/B remote results are thin.
+- Use this track only to guarantee high-confidence coverage grounded in the deepest proven strength when the two priority tracks are thin. Surface at most the 1-2 strongest.
 
 ## Candidate Fit Lens
 

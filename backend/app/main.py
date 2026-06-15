@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import DOCS_DIR, QUESTIONS_PATH, ROOT_DIR, settings
+from app.config import DOCS_DIR, PROJECT_ROOT, QUESTIONS_PATH, settings
 from app.models import JobSeekerRequest, JobSeekerResponse, RecruiterRequest, RecruiterResponse
 from app.services.context_store import ContextStore
 from app.services.job_seeker_agent import JobSeekerAgent
@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
     app.state.context_store = context_store
     app.state.question_logger = question_logger
     app.state.recruiter_agent = RecruiterAgent(context_store, web_search, llm_client)
-    app.state.job_seeker_agent = JobSeekerAgent(llm_client, web_search, ROOT_DIR.parent)
+    app.state.job_seeker_agent = JobSeekerAgent(llm_client, web_search, PROJECT_ROOT)
     yield
 
 

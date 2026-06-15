@@ -7,8 +7,17 @@ import logging
 from pathlib import Path
 import re
 
+from app.config import settings
 from app.services.llm_client import LLMClient
-from app.services.web_search import SearchHit, WebSearchService
+from app.services.web_search import (
+    NON_LISTING_DOMAINS,
+    SearchHit,
+    WebSearchService,
+    classify_employment,
+    classify_sweden_eligibility,
+    is_non_listing_url,
+    looks_like_job_description,
+)
 
 
 class JobSeekerAgent:
@@ -21,6 +30,7 @@ class JobSeekerAgent:
         self.prompt_path = self.agent_dir / "KOOG_AGENT_PROMPT.md"
         self.instructions_path = self.agent_dir / "AGENT_INSTRUCTIONS.md"
         self.output_path = self.agent_dir / "job_search_report.html"
+        self.audit_path = self.agent_dir / "job_search_audit.json"
         self.raw_output_path = self.agent_dir / "job_search_last_response_raw.txt"
         self.run_log_path = self.agent_dir / "job_search_run.log"
 
@@ -31,7 +41,7 @@ class JobSeekerAgent:
         )
         instructions = self._load_text(self.instructions_path, "")
         timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-        search_evidence, evidence_rows = await self._collect_search_evidence()
+        search_evidence, evidence_rows, audit = await self._collect_search_evidence()
 
         user_prompt = (
             "Run the autonomous job search workflow now.\n\n"
@@ -63,6 +73,13 @@ class JobSeekerAgent:
             '  "confidence": "High|Medium|Low",\n'
             '  "clearance_status": "string"\n'
             "}\n"
+            "HARD SELECTION RULES (apply before ranking):\n"
+            "- Exclude contractor, freelance, B2B, and hourly/temporary roles. Surface only permanent full-time employment.\n"
+            "- Every surfaced role must be realistically open to a candidate based in Sweden (Sweden / EU / EEA / Europe-wide remote). "
+            "Drop US-only and single-other-country-only remote roles. If eligibility cannot be confirmed from the evidence, set confidence Low and state it.\n"
+            "- AI-First / Forward Deployed Engineer and Defense & Military Tech are the two PRIORITY tracks. "
+            "Android / Kotlin Core is a fallback only (include at most the 1-2 strongest, and only to guarantee coverage).\n"
+            "- Use the employment=, sweden_eligibility=, and posted= tags from the evidence. Do not contradict them or invent posting dates.\n"
             "profile_strengthening must contain 3-6 specific, prioritized actions that close the gap "
             "between the candidate's evidence and the recurring requirements seen in the live results "
             "(especially defense/FDE/AI-First), including hardening Python and TypeScript into independent proficiency.\n"
@@ -87,13 +104,25 @@ class JobSeekerAgent:
             else self._build_fallback_structured_payload(timestamp=timestamp, evidence_rows=evidence_rows, raw_response=raw_response)
         )
 
-        html = self._render_structured_report(timestamp=timestamp, payload=structured_payload)
+        # Deterministic per-URL classification index (kept evidence) for report badges.
+        evidence_index = {
+            self._normalize_url(str(row["url"])): row
+            for row in evidence_rows
+            if row.get("url")
+        }
+
+        html = self._render_structured_report(
+            timestamp=timestamp,
+            payload=structured_payload,
+            evidence_index=evidence_index,
+        )
         if fallback_used:
             self.logger.warning("JobSeeker fallback payload used. reason=%s", parse_reason)
 
         self.output_path.parent.mkdir(parents=True, exist_ok=True)
         self.output_path.write_text(html, encoding="utf-8")
         self.raw_output_path.write_text(raw_response, encoding="utf-8")
+        self._write_audit(timestamp=timestamp, audit=audit, fallback_used=fallback_used, parse_reason=parse_reason)
         self._append_run_log(
             timestamp,
             raw_response=raw_response,
@@ -105,100 +134,265 @@ class JobSeekerAgent:
 
         return {
             "report_path": str(self.output_path),
+            "audit_path": str(self.audit_path),
             "generated_at": timestamp,
             "prompt_files": [str(self.prompt_path), str(self.instructions_path)],
             "fallback_used": fallback_used,
             "agent_response_preview": self._build_response_preview(raw_response),
         }
 
-    async def _collect_search_evidence(self) -> tuple[str, list[dict[str, str]]]:
-        queries = [
-            (
-                "AI-First / Forward Deployed Engineer",
-                "Forward Deployed Engineer",
-                "Forward Deployed Engineer remote Europe LLM AI agents customer-facing jobs posted 2 days",
-            ),
-            (
-                "AI-First / Forward Deployed Engineer",
-                "Applied AI Engineer",
-                "Applied AI Engineer remote EU LLM RAG MCP integration jobs posted 2 days",
-            ),
-            (
-                "AI-First / Forward Deployed Engineer",
-                "AI Product / LLM Engineer",
-                "LLM Engineer AI Product Engineer remote Europe TypeScript Python jobs posted 2 days",
-            ),
-            (
-                "Defense & Military Tech",
-                "Defense Software Engineer",
-                "Defense military software engineer Kotlin backend remote Europe Sweden jobs posted 2 days",
-            ),
-            (
-                "Defense & Military Tech",
-                "Defense Forward Deployed / Field Engineer",
-                "Defense tech forward deployed field engineer Saab Helsing MilDef Anduril EU jobs posted 2 days",
-            ),
-            (
-                "Defense & Military Tech",
-                "Tactical / Situational-Awareness Engineer",
-                "Defense AI situational awareness tactical software engineer Sweden EU remote jobs posted 2 days",
-            ),
-            (
-                "Android / Kotlin Core",
-                "Senior / Staff Android Engineer",
-                "Senior Android Engineer Kotlin Jetpack Compose remote Europe jobs posted 2 days",
-            ),
-            (
-                "Android / Kotlin Core",
-                "Kotlin Backend / KMP Engineer",
-                "Kotlin Ktor backend Kotlin Multiplatform engineer remote EU jobs posted 2 days",
-            ),
-        ]
+    async def _collect_search_evidence(self) -> tuple[str, list[dict[str, str]], dict]:
+        queries = self._build_query_set()
 
-        sections: list[str] = []
-        evidence_rows: list[dict[str, str]] = []
-        for track, role, query in queries:
+        # 1) Collect recency-bounded hits per query (Tavily advanced + raw content).
+        #    ATS/careers domains are biased in per-query via include_domains; known
+        #    non-listing sources (social, forums, repos, blogs) are excluded at the
+        #    source so the noise never costs us credits.
+        collected: list[tuple[str, str, SearchHit]] = []
+        search_errors: list[str] = []
+        for track, role, query, include_domains in queries:
             try:
-                hits = await self.web_search.search(query, limit=5)
-            except Exception as error:
-                sections.append(
-                    f"[{track} | {role}] query='{query}'\\n- Search failed: {error}"
+                hits = await self.web_search.search(
+                    query,
+                    limit=settings.tavily_max_results,
+                    include_raw_content=True,
+                    include_domains=include_domains,
+                    exclude_domains=list(NON_LISTING_DOMAINS),
                 )
-                evidence_rows.append(
-                    {
-                        "track": track,
-                        "role": role,
-                        "title": "Search failed",
-                        "url": "",
-                        "snippet": str(error),
-                    }
+            except Exception as error:
+                search_errors.append(f"[{track} | {role}] search failed: {error}")
+                continue
+            for hit in hits:
+                collected.append((track, role, hit))
+
+        # 2) Dedupe by URL; the first (highest-priority) track to surface a URL owns
+        #    it. Drop known non-listing sources that slipped past exclude_domains
+        #    (e.g. blog/category/sitemap paths on otherwise-valid hosts).
+        unique: dict[str, tuple[str, str, SearchHit]] = {}
+        dropped_non_listing_rows: list[dict[str, str]] = []
+        dropped_non_listing = 0
+        for track, role, hit in collected:
+            if not hit.url or hit.url in unique:
+                continue
+            if is_non_listing_url(hit.url):
+                dropped_non_listing += 1
+                dropped_non_listing_rows.append(
+                    self._evidence_row(
+                        track,
+                        role,
+                        hit,
+                        "Non-listing source (social/forum/repo/blog/aggregator index).",
+                        drop_reason="non-listing-source",
+                    )
                 )
                 continue
+            unique[hit.url] = (track, role, hit)
 
-            sections.append(self._format_hits(track=track, role=role, query=query, hits=hits))
-            for hit in hits:
-                evidence_rows.append(
-                    {
-                        "track": track,
-                        "role": role,
-                        "title": hit.title,
-                        "url": hit.url,
-                        "snippet": hit.snippet or "No snippet provided",
-                    }
-                )
+        # 3) Enrich candidates that don't yet read like a real job description with
+        #    full-page text via Tavily Extract. Long aggregator/nav-heavy pages have
+        #    plenty of characters but few JD structural markers, so a length check
+        #    alone (the old <400 trigger) almost never fired.
+        needs_extract = [
+            url
+            for url, (_, _, hit) in unique.items()
+            if not looks_like_job_description(hit.raw_content)
+        ][: settings.job_search_max_extracts]
+        extracted = await self.web_search.extract(needs_extract)
 
-        return "\n\n".join(sections), evidence_rows
+        # 4) Classify employment + Sweden eligibility, then apply hard filters.
+        kept: list[tuple[str, str, SearchHit, str]] = []
+        dropped_rows: list[dict[str, str]] = list(dropped_non_listing_rows)
+        dropped_contract = 0
+        dropped_eligibility = 0
+        for url, (track, role, hit) in unique.items():
+            body = extracted.get(url) or hit.raw_content or hit.snippet
+            hit.raw_content = body[:1800]
+            hit.employment_type = classify_employment(hit.title, body)
+            status, note = classify_sweden_eligibility(body)
+            hit.sweden_eligibility = status
 
-    def _format_hits(self, track: str, role: str, query: str, hits: list[SearchHit]) -> str:
-        header = f"[{track} | {role}] query='{query}'"
-        if not hits:
-            return f"{header}\\n- No results"
+            if settings.job_search_exclude_contract and hit.employment_type == "contract":
+                dropped_contract += 1
+                dropped_rows.append(self._evidence_row(track, role, hit, note, drop_reason="contract"))
+                continue
+            if settings.job_search_require_sweden_eligibility and status == "blocked":
+                dropped_eligibility += 1
+                dropped_rows.append(self._evidence_row(track, role, hit, note, drop_reason="not-sweden-eligible"))
+                continue
+            kept.append((track, role, hit, note))
+
+        # 5) Group surviving evidence by track for the prompt + fallback rows.
+        by_track: dict[str, list[tuple[str, SearchHit]]] = {}
+        evidence_rows: list[dict[str, str]] = []
+        for track, role, hit, note in kept:
+            by_track.setdefault(track, []).append((role, hit))
+            evidence_rows.append(self._evidence_row(track, role, hit, note))
+
+        sections: list[str] = []
+        for track in (
+            "AI-First / Forward Deployed Engineer",
+            "Defense & Military Tech",
+            "Android / Kotlin Core",
+        ):
+            sections.append(self._format_track(track, by_track.get(track, [])))
+
+        summary_counts = {
+            "queries_run": len(queries),
+            "raw_hits": len(collected),
+            "unique_urls": len(unique),
+            "dropped_non_listing": dropped_non_listing,
+            "pages_extracted": len(extracted),
+            "kept": len(kept),
+            "dropped_contract": dropped_contract,
+            "dropped_not_sweden_eligible": dropped_eligibility,
+        }
+        summary = (
+            "[Filtering summary] "
+            f"raw_hits={summary_counts['raw_hits']} unique={summary_counts['unique_urls']} "
+            f"dropped_non_listing={dropped_non_listing} "
+            f"kept={summary_counts['kept']} dropped_contract={dropped_contract} "
+            f"dropped_not_sweden_eligible={dropped_eligibility} pages_extracted={len(extracted)}"
+        )
+        if search_errors:
+            summary += "\nSearch errors:\n- " + "\n- ".join(search_errors)
+        sections.append(summary)
+
+        audit = {
+            "summary": summary_counts,
+            "kept": evidence_rows,
+            "dropped": dropped_rows,
+            "search_errors": search_errors,
+        }
+        return "\n\n".join(sections), evidence_rows, audit
+
+    def _build_query_set(self) -> list[tuple[str, str, str, list[str] | None]]:
+        ai = "AI-First / Forward Deployed Engineer"
+        defense = "Defense & Military Tech"
+        android = "Android / Kotlin Core"
+        # Eligibility + employment hints baked into every query.
+        eu = "remote Europe Sweden EU eligible full-time permanent not contract not freelance"
+        # Applicant-tracking systems that host real, applyable listings. Locking a
+        # query to these (Tavily include_domains) trades breadth for a much higher
+        # share of genuine job pages over blog/aggregator noise.
+        ats = [
+            "boards.greenhouse.io",
+            "greenhouse.io",
+            "jobs.lever.co",
+            "lever.co",
+            "jobs.ashbyhq.com",
+            "ashbyhq.com",
+            "myworkdayjobs.com",
+            "smartrecruiters.com",
+            "teamtailor.com",
+            "join.com",
+            "workable.com",
+            "recruitee.com",
+        ]
+        # Defense primes / well-known defense-tech employers' own careers domains.
+        defense_careers = [
+            "saab.com",
+            "mildef.com",
+            "helsing.ai",
+            "anduril.com",
+            "combitech.com",
+            "quantum-systems.com",
+        ]
+        # (track, role, query, include_domains | None)
+        return [
+            # --- Track A: AI-First / Forward Deployed Engineer (PRIMARY) ---
+            (ai, "Forward Deployed Engineer", f"Forward Deployed Engineer LLM AI agents customer-facing {eu}", None),
+            (ai, "Forward Deployed Engineer (ATS)", "Forward Deployed Engineer OR Applied AI Engineer LLM agents permanent remote Europe", ats),
+            (ai, "Applied AI Engineer", f"Applied AI Engineer RAG MCP LLM integration production {eu}", None),
+            (ai, "AI Solutions / Customer Engineer", f"AI Solutions Engineer OR AI Customer Engineer GenAI product {eu}", None),
+            (ai, "LLM / Generative AI Engineer (ATS)", "LLM Engineer OR Generative AI Engineer agentic AI orchestration permanent remote Europe", ats),
+            (ai, "AI Solutions Architect", f"AI Solutions Architect LLM platform enterprise integration {eu}", None),
+            # --- Track B: Defense & Military Tech (PRIMARY) ---
+            (defense, "Defense Software Engineer", f"defense military software engineer backend full-stack {eu}", None),
+            (defense, "Defense Primes (careers)", "software engineer OR forward deployed engineer OR autonomy engineer", defense_careers),
+            (defense, "C2 / ISR / Situational Awareness", f"command control ISR situational awareness tactical software engineer defense {eu}", None),
+            (defense, "Autonomy / Edge Defense Software", f"autonomy robotics edge software engineer defense drones aerospace {eu}", None),
+            (defense, "AI for Defense (ATS)", "AI OR machine learning engineer defense tech permanent remote Europe", ats),
+            (defense, "Nordic Defense Primes", f"Saab MilDef Combitech FMV defense software engineer Sweden {eu}", None),
+            # --- Track C: Android / Kotlin Core (FALLBACK only) ---
+            (android, "Senior / Staff Android (Kotlin/KMP)", f"Senior Staff Android Engineer Kotlin Jetpack Compose KMP {eu}", None),
+        ]
+
+    def _format_track(self, track: str, rows: list[tuple[str, SearchHit]]) -> str:
+        header = f"=== {track} (kept: {len(rows)}) ==="
+        if not rows:
+            return f"{header}\n- No qualifying (non-contract, Sweden-eligible) results."
 
         lines = [header]
-        for hit in hits:
-            snippet = hit.snippet or "No snippet provided"
-            lines.append(f"- {hit.title} | {hit.url} | {snippet}")
+        for role, hit in rows:
+            date = hit.published_date or "date n/a"
+            evidence = (hit.raw_content or hit.snippet or "No snippet").strip()
+            lines.append(
+                f"- [{role}] {hit.title} | {hit.url}\n"
+                f"  employment={hit.employment_type} sweden_eligibility={hit.sweden_eligibility} posted={date}\n"
+                f"  evidence: {evidence[:600]}"
+            )
         return "\n".join(lines)
+
+    def _evidence_row(
+        self,
+        track: str,
+        role: str,
+        hit: SearchHit,
+        note: str,
+        drop_reason: str | None = None,
+    ) -> dict[str, str]:
+        row = {
+            "track": track,
+            "role": role,
+            "title": hit.title,
+            "url": hit.url,
+            "snippet": hit.snippet or "No snippet provided",
+            "employment_type": hit.employment_type,
+            "sweden_eligibility": hit.sweden_eligibility,
+            "eligibility_note": note,
+            "posted_date": hit.published_date or "Not specified",
+        }
+        if drop_reason:
+            row["drop_reason"] = drop_reason
+        return row
+
+    @staticmethod
+    def _normalize_url(url: str) -> str:
+        return url.strip().rstrip("/").lower()
+
+    @staticmethod
+    def _is_fresh(date_str: str) -> bool:
+        """Heuristic: treat a posting as 'fresh' when it is <= 2 days old."""
+        text = (date_str or "").lower()
+        if any(token in text for token in ("hour", "minute", "today", "just posted")):
+            return True
+        if "yesterday" in text or "1 day" in text:
+            return True
+        match = re.search(r"(\d{4})-(\d{2})-(\d{2})", text)
+        if match:
+            try:
+                posted = datetime(
+                    int(match.group(1)), int(match.group(2)), int(match.group(3)), tzinfo=timezone.utc
+                )
+            except ValueError:
+                return False
+            return 0 <= (datetime.now(timezone.utc) - posted).days <= 2
+        return False
+
+    def _write_audit(self, timestamp: str, audit: dict, fallback_used: bool, parse_reason: str) -> None:
+        try:
+            payload = {
+                "generated_at": timestamp,
+                "fallback_used": fallback_used,
+                "parse_reason": parse_reason,
+                **audit,
+            }
+            self.audit_path.parent.mkdir(parents=True, exist_ok=True)
+            self.audit_path.write_text(
+                json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+        except Exception as error:  # pragma: no cover - defensive I/O guard
+            self.logger.warning("Could not write JobSeeker audit JSON: %s", error)
 
     def _load_text(self, path: Path, fallback: str) -> str:
         try:
@@ -300,8 +494,11 @@ class JobSeekerAgent:
                     "title": row["title"],
                     "role_category": row["role"],
                     "track": row["track"],
-                    "work_model_location": "See source listing",
-                    "posted_date": "Not specified",
+                    "work_model_location": (
+                        f"Sweden eligibility: {row.get('sweden_eligibility', 'unknown')}; "
+                        f"employment: {row.get('employment_type', 'unknown')}"
+                    ),
+                    "posted_date": row.get("posted_date") or "Not specified",
                     "core_tech_stack": ["Not specified"],
                     "direct_link": row["url"],
                     "why_match": "Derived from live search evidence due to JSON parse fallback.",
@@ -337,7 +534,45 @@ class JobSeekerAgent:
             ],
         }
 
-    def _render_structured_report(self, timestamp: str, payload: dict) -> str:
+    def _render_structured_report(self, timestamp: str, payload: dict, evidence_index: dict[str, dict] | None = None) -> str:
+        evidence_index = evidence_index or {}
+
+        def render_badges(job: dict[str, str | list[str]]) -> str:
+            evidence = evidence_index.get(self._normalize_url(str(job.get("direct_link", ""))))
+            verified = evidence is not None
+            employment = str((evidence or {}).get("employment_type") or "").lower()
+            eligibility = str((evidence or {}).get("sweden_eligibility") or "").lower()
+            posted = str((evidence or {}).get("posted_date") or job.get("posted_date") or "").strip()
+
+            chips: list[tuple[str, str]] = []
+            # Employment type
+            if employment == "permanent":
+                chips.append(("badge-ok", "Permanent"))
+            elif employment == "contract":
+                chips.append(("badge-bad", "Contract"))
+            else:
+                chips.append(("badge-muted", "Employment: unverified" if verified else "Employment: per listing"))
+            # Sweden eligibility
+            if eligibility == "eligible":
+                chips.append(("badge-ok", "Sweden-eligible"))
+            elif eligibility == "restricted":
+                chips.append(("badge-warn", "Eligibility: restricted"))
+            elif eligibility == "blocked":
+                chips.append(("badge-bad", "Not Sweden-eligible"))
+            else:
+                chips.append(("badge-muted", "Eligibility: unverified" if verified else "Eligibility: per listing"))
+            # Recency
+            if posted and posted.lower() not in ("not specified", "n/a"):
+                if self._is_fresh(posted):
+                    chips.append(("badge-ok", f"Fresh \u00b7 {posted}"))
+                else:
+                    chips.append(("badge-muted", f"Posted {posted}"))
+            # Provenance of the badges themselves
+            chips.append(("badge-ok", "Evidence-verified") if verified else ("badge-muted", "Model-surfaced"))
+
+            spans = "".join(f'<span class="badge {cls}">{escape(text)}</span>' for cls, text in chips)
+            return f'<div class="badges">{spans}</div>'
+
         def render_jobs(items: list[dict[str, str | list[str]]], show_clearance: bool) -> str:
             if not items:
                 return "<p>No matches found.</p>"
@@ -361,6 +596,7 @@ class JobSeekerAgent:
                 parts.append(
                     "<article class=\"job\">"
                     f"<h4>{escape(str(job.get('title', 'Unknown title')))}</h4>"
+                    f"{render_badges(job)}"
                     f"<p><strong>Company:</strong> {escape(str(job.get('company', 'Unknown company')))}</p>"
                     f"<p><strong>Company Description:</strong> {escape(str(job.get('company_description', 'N/A')))}</p>"
                     f"<p><strong>Role Category:</strong> {escape(str(job.get('role_category', 'N/A')))}</p>"
@@ -401,6 +637,12 @@ class JobSeekerAgent:
             "h1{margin-bottom:4px;}h2{margin-top:22px;margin-bottom:10px;}h3{margin:12px 0 8px;}"
             ".meta{color:#475569;font-size:14px;margin-bottom:14px;}"
             ".job{border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin:10px 0;background:#fdfefe;}"
+            ".badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px;}"
+            ".badge{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap;}"
+            ".badge-ok{background:#dcfce7;color:#166534;border-color:#bbf7d0;}"
+            ".badge-warn{background:#fef9c3;color:#854d0e;border-color:#fde68a;}"
+            ".badge-bad{background:#fee2e2;color:#991b1b;border-color:#fecaca;}"
+            ".badge-muted{background:#f1f5f9;color:#475569;border-color:#e2e8f0;}"
             "ul{padding-left:22px;}li{margin:6px 0;}a{color:#0b63ce;}p{margin:6px 0;}"
             "</style>\n"
             "  </head>\n"

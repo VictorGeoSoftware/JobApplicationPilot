@@ -14,6 +14,7 @@ class JobSeekerRequest(BaseModel):
 
 class JobSeekerResponse(BaseModel):
     report_path: str
+    audit_path: str
     generated_at: str
     prompt_files: list[str]
     fallback_used: bool
