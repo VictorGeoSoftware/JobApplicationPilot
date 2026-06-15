@@ -4,7 +4,7 @@
 
 ## Purpose
 
-When triggered from the `job pilot` browser extension, the agent should:
+When triggered from the browser extension, the agent should:
 
 - run a live job search across three tracks,
 - apply the candidate-fit, fully-remote, and geography/eligibility constraints,
@@ -27,11 +27,11 @@ When triggered from the `job pilot` browser extension, the agent should:
 - `AGENT_INSTRUCTIONS.md` - consolidated appended instruction set
 - `job_search_report.html` - generated output file
 
-The live engine lives in the backend at `../job pilot/backend/app/services/job_seeker_agent.py`, which reads these two files and renders the report.
+The live engine lives in the backend at `../backend/app/services/job_seeker_agent.py`, which reads these two files and renders the report.
 
 ## Trigger Contract
 
-The current `job pilot` extension/backend integration triggers the workflow via a backend endpoint.
+The current extension/backend integration triggers the workflow via a backend endpoint.
 
 Expected behavior when the trigger is pressed:
 
