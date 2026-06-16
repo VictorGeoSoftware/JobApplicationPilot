@@ -34,17 +34,33 @@ class JobSeekerAgent:
         self.raw_output_path = self.agent_dir / "job_search_last_response_raw.txt"
         self.run_log_path = self.agent_dir / "job_search_run.log"
 
-    async def run(self) -> dict[str, str | list[str]]:
+    async def run(self, extra_prompt: str | None = None) -> dict[str, str | list[str]]:
+        focus = (extra_prompt or "").strip()
         system_prompt = self._load_text(
             self.prompt_path,
             "You are JobSeeker, an autonomous elite tech recruiter agent. Return strict JSON only for backend rendering.",
         )
         instructions = self._load_text(self.instructions_path, "")
         timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-        search_evidence, evidence_rows, audit = await self._collect_search_evidence()
+        search_evidence, evidence_rows, audit = await self._collect_search_evidence(focus)
+
+        focus_block = ""
+        if focus:
+            focus_block = (
+                "OPERATOR FOCUS FOR THIS RUN (highest priority for ranking - overrides the default "
+                "track weighting, but NOT the hard selection rules below):\n"
+                f'"{focus}"\n'
+                "Treat this as the candidate's explicit preference for this run. Surface roles matching this "
+                "focus first in top_overall_matches, explain the fit in why_match, and place each match in the "
+                "track section that fits best. A dedicated 'Operator Focus' evidence group was searched "
+                "specifically for this. Do NOT relax the permanent-employment or Sweden/EU-eligibility hard "
+                "rules for focus roles. If little or no matching evidence surfaced, say so explicitly in "
+                "search_limitations instead of inventing roles.\n\n"
+            )
 
         user_prompt = (
             "Run the autonomous job search workflow now.\n\n"
+            f"{focus_block}"
             "Return strict JSON only (no markdown code fences, no prose).\n"
             "Use this exact top-level schema:\n"
             "{\n"
@@ -115,6 +131,7 @@ class JobSeekerAgent:
             timestamp=timestamp,
             payload=structured_payload,
             evidence_index=evidence_index,
+            focus=focus,
         )
         if fallback_used:
             self.logger.warning("JobSeeker fallback payload used. reason=%s", parse_reason)
@@ -129,6 +146,7 @@ class JobSeekerAgent:
             final_html=html,
             fallback_used=fallback_used,
             reason=parse_reason,
+            focus=focus,
         )
         self.logger.info("JobSeeker run completed. fallback_used=%s output=%s", fallback_used, self.output_path)
 
@@ -139,10 +157,18 @@ class JobSeekerAgent:
             "prompt_files": [str(self.prompt_path), str(self.instructions_path)],
             "fallback_used": fallback_used,
             "agent_response_preview": self._build_response_preview(raw_response),
+            "applied_focus": focus or None,
         }
 
-    async def _collect_search_evidence(self) -> tuple[str, list[dict[str, str]], dict]:
-        queries = self._build_query_set()
+    async def _collect_search_evidence(self, focus: str = "") -> tuple[str, list[dict[str, str]], dict]:
+        base_queries = self._build_query_set()
+        focus_track = ""
+        focus_queries: list[tuple[str, str, str, list[str] | None]] = []
+        if focus:
+            focus_track, focus_queries = await self._build_focus_queries(focus)
+        # Focus queries go first so the Operator Focus track owns any URL that also
+        # surfaces under a default track (dedupe is first-track-wins).
+        queries = focus_queries + base_queries
 
         # 1) Collect recency-bounded hits per query (Tavily advanced + raw content).
         #    ATS/careers domains are biased in per-query via include_domains; known
@@ -229,11 +255,15 @@ class JobSeekerAgent:
             evidence_rows.append(self._evidence_row(track, role, hit, note))
 
         sections: list[str] = []
-        for track in (
+        section_tracks: list[str] = []
+        if focus_track:
+            section_tracks.append(focus_track)
+        section_tracks += [
             "AI-First / Forward Deployed Engineer",
             "Defense & Military Tech",
             "Android / Kotlin Core",
-        ):
+        ]
+        for track in section_tracks:
             sections.append(self._format_track(track, by_track.get(track, [])))
 
         summary_counts = {
@@ -265,16 +295,9 @@ class JobSeekerAgent:
         }
         return "\n\n".join(sections), evidence_rows, audit
 
-    def _build_query_set(self) -> list[tuple[str, str, str, list[str] | None]]:
-        ai = "AI-First / Forward Deployed Engineer"
-        defense = "Defense & Military Tech"
-        android = "Android / Kotlin Core"
-        # Eligibility + employment hints baked into every query.
-        eu = "remote Europe Sweden EU eligible full-time permanent not contract not freelance"
-        # Applicant-tracking systems that host real, applyable listings. Locking a
-        # query to these (Tavily include_domains) trades breadth for a much higher
-        # share of genuine job pages over blog/aggregator noise.
-        ats = [
+    @staticmethod
+    def _ats_domains() -> list[str]:
+        return [
             "boards.greenhouse.io",
             "greenhouse.io",
             "jobs.lever.co",
@@ -288,6 +311,111 @@ class JobSeekerAgent:
             "workable.com",
             "recruitee.com",
         ]
+
+    async def _build_focus_queries(
+        self, focus: str
+    ) -> tuple[str, list[tuple[str, str, str, list[str] | None]]]:
+        """Turn a free-text operator focus into a few targeted search queries.
+
+        Primary path asks the LLM to expand the focus into concise keyword queries
+        (robust to natural-language phrasing). Any failure degrades to a deterministic
+        keyword fallback so the focus always produces at least one query.
+        """
+        eu = "remote Europe Sweden EU eligible full-time permanent not contract not freelance"
+        label = "Operator Focus"
+        queries: list[str] = []
+        try:
+            raw = await self.llm_client.generate_answer(
+                system_prompt=(
+                    "You convert a job seeker's free-text focus into concise web-search queries for "
+                    "finding live job postings. Return STRICT JSON only - no prose, no code fences."
+                ),
+                user_prompt=(
+                    f"Operator focus:\n{focus}\n\n"
+                    'Return strict JSON exactly: {"label": "<2-4 word focus label>", '
+                    '"queries": ["query1", "query2", "query3"]}\n'
+                    "Rules: 2-4 queries; each is concise keywords (role titles + domain/tech terms) "
+                    "suitable for a job-board search; do NOT add country/remote/eligibility words "
+                    "(they are appended automatically); no duplicates."
+                ),
+                screenshot_base64=None,
+            )
+            data = self._loads_json_object(raw)
+            if isinstance(data, dict):
+                label = (str(data.get("label") or "").strip() or "Operator Focus")[:48]
+                queries = [str(q).strip() for q in (data.get("queries") or []) if str(q).strip()][:4]
+        except Exception as error:  # pragma: no cover - defensive: network/model issues
+            self.logger.warning("Focus query expansion failed; using naive fallback: %s", error)
+
+        if not queries:
+            label, queries = self._naive_focus_queries(focus)
+
+        track = f"Operator Focus: {label}"
+        ats = self._ats_domains()
+        out: list[tuple[str, str, str, list[str] | None]] = []
+        for index, query in enumerate(queries):
+            # Alternate broad and ATS-locked queries: breadth + high-signal listings.
+            include = ats if index % 2 == 1 else None
+            out.append((track, label, f"{query} {eu}", include))
+        return track, out
+
+    @staticmethod
+    def _loads_json_object(raw: str) -> dict | None:
+        text = (raw or "").strip()
+        fenced = re.match(r"^```(?:json)?\s*(.*?)\s*```$", text, re.DOTALL)
+        if fenced:
+            text = fenced.group(1).strip()
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            match = re.search(r"\{.*\}", text, re.DOTALL)
+            if not match:
+                return None
+            try:
+                return json.loads(match.group(0))
+            except json.JSONDecodeError:
+                return None
+
+    @staticmethod
+    def _naive_focus_queries(focus: str) -> tuple[str, list[str]]:
+        stop = {
+            "hey", "hi", "hello", "im", "ive", "id", "ill", "quite", "into", "so", "like",
+            "to", "find", "finding", "something", "in", "where", "can", "could", "you",
+            "help", "me", "with", "that", "this", "a", "an", "the", "of", "for", "and",
+            "or", "looking", "look", "want", "wanna", "would", "get", "role", "roles",
+            "job", "jobs", "work", "working", "my", "am", "really", "very", "keen",
+            "interested", "on", "prefer", "please", "thanks", "thank", "develop",
+            "developing", "build", "building", "make", "making", "im,", "love", "loving",
+        }
+        words = re.findall(r"[a-zA-Z][a-zA-Z+#.]+", focus.lower())
+        keywords: list[str] = []
+        seen: set[str] = set()
+        for word in words:
+            if word in stop or word in seen:
+                continue
+            seen.add(word)
+            keywords.append(word)
+        keywords = keywords[:5]
+        if not keywords:
+            core = focus.strip()[:80] or "software engineer"
+            return "Operator Focus", [f"{core} software engineer"]
+        core = " ".join(keywords)
+        label = " ".join(keywords[:3]).title()
+        return label, [
+            f"{core} software engineer",
+            f"{core} developer engineer",
+        ]
+
+    def _build_query_set(self) -> list[tuple[str, str, str, list[str] | None]]:
+        ai = "AI-First / Forward Deployed Engineer"
+        defense = "Defense & Military Tech"
+        android = "Android / Kotlin Core"
+        # Eligibility + employment hints baked into every query.
+        eu = "remote Europe Sweden EU eligible full-time permanent not contract not freelance"
+        # Applicant-tracking systems that host real, applyable listings. Locking a
+        # query to these (Tavily include_domains) trades breadth for a much higher
+        # share of genuine job pages over blog/aggregator noise.
+        ats = self._ats_domains()
         # Defense primes / well-known defense-tech employers' own careers domains.
         defense_careers = [
             "saab.com",
@@ -534,7 +662,7 @@ class JobSeekerAgent:
             ],
         }
 
-    def _render_structured_report(self, timestamp: str, payload: dict, evidence_index: dict[str, dict] | None = None) -> str:
+    def _render_structured_report(self, timestamp: str, payload: dict, evidence_index: dict[str, dict] | None = None, focus: str = "") -> str:
         evidence_index = evidence_index or {}
 
         def render_badges(job: dict[str, str | list[str]]) -> str:
@@ -650,7 +778,8 @@ class JobSeekerAgent:
             "    <main>\n"
             "      <h1>JobSeeker Report</h1>\n"
             f"      <p class=\"meta\">Generated at {escape(timestamp)}</p>\n"
-            "      <section>\n"
+            + (f"      <p class=\"meta\"><strong>Operator focus:</strong> {escape(focus)}</p>\n" if focus else "")
+            + "      <section>\n"
             "        <h2>Executive Summary</h2>\n"
             f"        <p>{summary}</p>\n"
             "      </section>\n"
@@ -679,13 +808,14 @@ class JobSeekerAgent:
             "</html>\n"
         )
 
-    def _append_run_log(self, timestamp: str, raw_response: str, final_html: str, fallback_used: bool, reason: str) -> None:
+    def _append_run_log(self, timestamp: str, raw_response: str, final_html: str, fallback_used: bool, reason: str, focus: str = "") -> None:
         try:
             final_trimmed = final_html.strip().lower()
+            focus_note = f" focus={focus[:80]!r}" if focus else ""
             line = (
                 f"[{timestamp}] fallback_used={fallback_used} "
                 f"reason={reason} raw_chars={len(raw_response)} final_chars={len(final_html)} "
-                f"final_has_close_html={'</html>' in final_trimmed}\n"
+                f"final_has_close_html={'</html>' in final_trimmed}{focus_note}\n"
             )
             with self.run_log_path.open("a", encoding="utf-8") as handle:
                 handle.write(line)

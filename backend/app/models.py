@@ -9,7 +9,7 @@ class ChatMessage(BaseModel):
 
 
 class JobSeekerRequest(BaseModel):
-    pass
+    extra_prompt: str | None = Field(default=None, max_length=2000)
 
 
 class JobSeekerResponse(BaseModel):
@@ -19,6 +19,7 @@ class JobSeekerResponse(BaseModel):
     prompt_files: list[str]
     fallback_used: bool
     agent_response_preview: str
+    applied_focus: str | None = None
 
 
 class RecruiterRequest(BaseModel):

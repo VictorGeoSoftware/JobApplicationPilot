@@ -1,155 +1,170 @@
 {
-  "executive_summary": "Live-search evidence was noisy and sparse after applying the hard filters, but a small set of plausible permanent roles remains. The strongest opportunities cluster in AI-first engineering rather than true Europe-remote defense software. Defense-specific evidence in this run is weak and often non-listing or non-software noise, so only low-confidence defense options are surfaced. Android/Kotlin remains the most proven fallback, but only one fallback role is worth carrying given the priority on AI-first and defense.",
+  "executive_summary": "Priority-track quality is thin in the supplied live evidence after enforcing permanent full-time and Sweden/EU applicability. The strongest realistic opportunities are concentrated in AI-first roles with explicit full-time status and at least Europe/Nordics compatibility, led by Accenture Nordics GenAI Engineer and Mistral’s applied AI/customer-delivery style role. Defense-specific evidence is notably weak because many surfaced results are stale, non-listings, US-based, or lack verified remote/Sweden eligibility; only Helsing survives as a cautious low-confidence defense lead. Android/Kotlin remains the strongest fallback, with MLabs the clearest fit, but it is intentionally deprioritized behind AI-first and defense goals.",
   "top_overall_matches": [
     {
-      "company": "SQLI",
-      "company_description": "European digital services and engineering consultancy building enterprise software and AI solutions for clients.",
-      "title": "AI Engineer",
+      "company": "Accenture Nordics",
+      "company_description": "Global professional services firm delivering technology and AI solutions to enterprises and public-sector clients across the Nordics.",
+      "title": "GenAI Engineer (Mid) (AI&Data)",
       "role_category": "Applied AI Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Full-time; location model not clearly extracted from evidence; Sweden/EU eligibility tagged eligible",
+      "work_model_location": "Nordics role; Sweden/EU eligibility marked eligible; exact remote model not confirmed in supplied evidence",
       "posted_date": "date n/a",
       "core_tech_stack": [
-        "AI engineering",
-        "enterprise IT",
-        "software engineering"
+        "Generative AI",
+        "AI/Data platforms",
+        "LLM integration"
       ],
-      "direct_link": "https://jobs.smartrecruiters.com/SQLI1/744000130756314-ai-engineer",
-      "why_match": "Good thematic fit for Victor's shipped AI-native work: production LLM integration, agent workflows, and backend delivery. It is one of the few direct full-time AI roles with explicit permanent employment tagging and Sweden eligibility kept in evidence. Confidence is reduced because the extracted evidence is incomplete on exact stack and remote model.",
+      "direct_link": "https://jobgether.com/offer/6a2fb82063c956434a781123-genai-engineer-mid-ai-data",
+      "why_match": "Strong domain fit to Victor’s shipped production AI work: LLM integration, AI agents, RAG-style delivery, and enterprise engineering. Accenture’s client-facing delivery model also aligns with a forward-deployed or solutions-oriented trajectory. Confidence is reduced because the supplied evidence does not clearly confirm fully remote work model.",
       "confidence": "Medium",
       "clearance_status": "Not specified"
     },
     {
-      "company": "Satori Analytics",
-      "company_description": "Data and AI scale-up delivering cloud, analytics, and AI applications for commercial clients.",
-      "title": "Software Engineer (AI Platform)",
-      "role_category": "AI Platform Engineer",
+      "company": "Mistral AI",
+      "company_description": "Frontier AI company building high-performance open and commercial models and applied customer solutions.",
+      "title": "Applied AI, Use-case, Software Engineer (Harness)",
+      "role_category": "Applied AI / Customer-facing Software Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Remote; Greece; full-time; Sweden eligibility tagged eligible",
-      "posted_date": "Posted 6 days ago",
+      "work_model_location": "Paris / London, hybrid; Sweden eligibility tagged eligible",
+      "posted_date": "date n/a",
       "core_tech_stack": [
-        "AI platform",
-        "cloud-based ecosystems",
-        "data lifecycle",
-        "AI applications"
+        "Applied AI",
+        "Agentic workflows",
+        "Customer use-case delivery",
+        "LLM systems"
       ],
-      "direct_link": "https://jobs.smartrecruiters.com/SQLI1/744000130756314-ai-engineer",
-      "why_match": "Strong overlap with Victor's backend plus AI-delivery profile: platform engineering, AI applications, and production systems. The role is full-time and remote in the evidence, though country wording is Greece-based rather than clearly Europe-wide, so applicability from Sweden is weaker than ideal despite the provided eligibility tag.",
-      "confidence": "Low",
+      "direct_link": "https://jobs.lever.co/mistral/49aa2bb7-5504-46d3-bc40-e1bcdb12cee2",
+      "why_match": "This is one of the closest role-shape matches to Victor’s production AI background: turning AI capabilities into shipped customer use cases, bridging product and delivery, and operating close to agentic workflows. It is not remote, so it misses the hard default preference and is included only because the fit is unusually strong.",
+      "confidence": "Medium",
       "clearance_status": "Not specified"
     },
     {
       "company": "Mistral AI",
-      "company_description": "Foundation-model company building applied AI products and customer-facing use cases on top of its models.",
-      "title": "Applied AI, Use-case, Software Engineer (Harness)",
-      "role_category": "Applied AI / Solutions Engineer",
+      "company_description": "Frontier AI company focused on model development and applied AI deployment for enterprise use cases.",
+      "title": "Applied AI Engineer, CyberSecurity",
+      "role_category": "Applied AI Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Hybrid; Paris or London; full-time",
+      "work_model_location": "Work model not confirmed; Sweden eligibility unknown",
       "posted_date": "date n/a",
       "core_tech_stack": [
-        "applied AI",
-        "agentic workflows",
-        "customer-facing delivery",
-        "software engineering"
+        "Agentic workflows",
+        "Red-team/blue-team automation",
+        "Applied AI",
+        "Customer-facing delivery"
       ],
-      "direct_link": "https://jobs.lever.co/mistral/49aa2bb7-5504-46d3-bc40-e1bcdb12cee2",
-      "why_match": "This is the closest role-content match to Victor's AI-native delivery story: turning AI capabilities into customer use cases, bridging product and deployment, and operating in an FDE-adjacent mode. It is not remote and Sweden eligibility is not explicit from the listing evidence, so it is strategically relevant but not ideal on constraints.",
+      "direct_link": "https://jobs.lever.co/mistral/98e6a2ea-7049-4c8d-88b7-c9d824eea6f1",
+      "why_match": "The listing language is unusually aligned with Victor’s profile: composing agentic workflows, configuring real-world harnesses, and shipping client-used systems rather than prototypes. However, Sweden eligibility is not confirmed in the supplied evidence, so this can only be treated as a speculative but high-upside lead.",
       "confidence": "Low",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "Helsing",
+      "company_description": "European defense AI company building software and autonomy products for national security and military capability.",
+      "title": "IT Support Specialist",
+      "role_category": "Defense software / platform-adjacent role",
+      "track": "Defense & Military Tech",
+      "work_model_location": "Berlin; full-time; Sweden eligibility unknown",
+      "posted_date": "date n/a",
+      "core_tech_stack": [
+        "IT operations",
+        "Defense technology environment"
+      ],
+      "direct_link": "https://helsing.ai/jobs/4893273101?gh_jid=4893273101",
+      "why_match": "This is not a clean role fit for Victor’s senior engineering profile, but it is one of the only defense-priority-company listings in the evidence that is clearly full-time and genuine. It is best viewed as evidence that Helsing is actively hiring rather than as a primary application target.",
+      "confidence": "Low",
+      "clearance_status": "Not specified"
+    },
+    {
+      "company": "MLabs LTD",
+      "company_description": "Software engineering consultancy/product builder hiring remote Android talent.",
+      "title": "Senior Android Engineer",
+      "role_category": "Senior Android Engineer",
+      "track": "Android / Kotlin Core",
+      "work_model_location": "100% remote; Sweden/EU eligibility tagged eligible",
+      "posted_date": "date n/a",
+      "core_tech_stack": [
+        "Android",
+        "Kotlin"
+      ],
+      "direct_link": "https://www.flexjobs.com/gjw/mlabs_ltd/senior-android-engineer/publicjobs?id=42cb3668-5e59-4d82-8c15-dae574e0679f",
+      "why_match": "This is the most straightforward high-skill fallback match: senior Android, fully remote, and directly aligned with Victor’s strongest proven experience in Kotlin/Android product engineering.",
+      "confidence": "Medium",
       "clearance_status": "Not specified"
     }
   ],
   "ai_fde_track": [
     {
-      "company": "SQLI",
-      "company_description": "European digital services and engineering consultancy building enterprise software and AI solutions for clients.",
-      "title": "AI Engineer",
+      "company": "Accenture Nordics",
+      "company_description": "Global professional services firm delivering technology and AI solutions to enterprises and public-sector clients across the Nordics.",
+      "title": "GenAI Engineer (Mid) (AI&Data)",
       "role_category": "Applied AI Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Full-time; location model not clearly extracted from evidence; Sweden/EU eligibility tagged eligible",
+      "work_model_location": "Nordics role; Sweden/EU eligibility marked eligible; exact remote model not confirmed in supplied evidence",
       "posted_date": "date n/a",
       "core_tech_stack": [
-        "AI engineering",
-        "enterprise IT",
-        "software engineering"
+        "Generative AI",
+        "AI/Data platforms",
+        "LLM integration"
       ],
-      "direct_link": "https://jobs.smartrecruiters.com/SQLI1/744000130756314-ai-engineer",
-      "why_match": "Best balance in the evidence between relevance, permanent employment, and Sweden-eligible tagging. Victor's shipped MCP, agent, RAG, and backend work align well, especially if the role is client-facing or enterprise-delivery oriented.",
+      "direct_link": "https://jobgether.com/offer/6a2fb82063c956434a781123-genai-engineer-mid-ai-data",
+      "why_match": "Strong fit to Victor’s shipped enterprise AI delivery: LLM integrations, AI orchestration, and production-grade implementation. Also relevant because Accenture commonly values client-facing communication and solution delivery, which supports an FDE pivot.",
       "confidence": "Medium",
       "clearance_status": "Not specified"
     },
     {
-      "company": "Satori Analytics",
-      "company_description": "Data and AI scale-up delivering cloud, analytics, and AI applications for commercial clients.",
-      "title": "Software Engineer (AI Platform)",
-      "role_category": "AI Platform Engineer",
+      "company": "Mistral AI",
+      "company_description": "Frontier AI company building high-performance open and commercial models and applied customer solutions.",
+      "title": "Applied AI, Use-case, Software Engineer (Harness)",
+      "role_category": "Applied AI / Customer-facing Software Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Remote; Greece; full-time; Sweden eligibility tagged eligible",
-      "posted_date": "Posted 6 days ago",
+      "work_model_location": "Paris / London, hybrid; Sweden eligibility tagged eligible",
+      "posted_date": "date n/a",
       "core_tech_stack": [
-        "AI platform",
-        "cloud",
-        "data engineering",
-        "AI applications"
+        "Applied AI",
+        "Agentic workflows",
+        "Customer use-case delivery",
+        "LLM systems"
       ],
-      "direct_link": "https://apply.workable.com/satori-analytics-1/j/9BED81B562",
-      "why_match": "Strong overlap with Victor's Kotlin/.NET backend plus production AI delivery. The main drawback is that the extracted location wording reads as remote in Greece rather than clearly Europe-wide, so Sweden applicability should be validated before time is invested.",
-      "confidence": "Low",
+      "direct_link": "https://jobs.lever.co/mistral/49aa2bb7-5504-46d3-bc40-e1bcdb12cee2",
+      "why_match": "Excellent thematic match to Victor’s AI-native delivery profile and especially his 0→production AI assistant work. The role appears strongly customer/use-case oriented, which is exactly the right narrative for an FDE-style repositioning, but the hybrid location prevents a higher rank.",
+      "confidence": "Medium",
       "clearance_status": "Not specified"
     },
     {
       "company": "Mistral AI",
-      "company_description": "Foundation-model company building applied AI products and customer-facing use cases on top of its models.",
-      "title": "Applied AI, Use-case, Software Engineer (Harness)",
-      "role_category": "Applied AI / FDE-adjacent Engineer",
+      "company_description": "Frontier AI company focused on model development and applied AI deployment for enterprise use cases.",
+      "title": "Applied AI Engineer, CyberSecurity",
+      "role_category": "Applied AI Engineer",
       "track": "AI-First / Forward Deployed Engineer",
-      "work_model_location": "Hybrid; Paris or London; full-time",
+      "work_model_location": "Work model not confirmed; Sweden eligibility unknown",
       "posted_date": "date n/a",
       "core_tech_stack": [
-        "applied AI",
-        "agentic AI",
-        "customer use cases",
-        "software engineering"
+        "Agentic workflows",
+        "Red-team/blue-team automation",
+        "Applied AI",
+        "Customer-facing delivery"
       ],
-      "direct_link": "https://jobs.lever.co/mistral/49aa2bb7-5504-46d3-bc40-e1bcdb12cee2",
-      "why_match": "Excellent content fit for Victor's demonstrated ability to ship AI assistants quickly into production and connect models, orchestration, and real workflows. It misses the hard remote default and has unconfirmed Sweden eligibility, so it is more of an exception-watch role than a core application target.",
+      "direct_link": "https://jobs.lever.co/mistral/98e6a2ea-7049-4c8d-88b7-c9d824eea6f1",
+      "why_match": "Role language is highly compatible with Victor’s real profile: orchestrated agents, real-world deployment, and customer-facing outcomes. Low confidence is entirely due to missing verified Sweden eligibility and missing clear work-model evidence.",
       "confidence": "Low",
       "clearance_status": "Not specified"
     }
   ],
   "defense_military_track": [
     {
-      "company": "Shield AI",
-      "company_description": "Defense-tech company building autonomy software and intelligent systems for military and public-safety missions.",
-      "title": "Director, Structures - Design (R5047)",
-      "role_category": "AI for Defense",
+      "company": "Helsing",
+      "company_description": "European defense AI company building software and autonomy products for national security and military capability.",
+      "title": "IT Support Specialist",
+      "role_category": "Defense software / platform-adjacent role",
       "track": "Defense & Military Tech",
-      "work_model_location": "Remote; Dallas or San Diego context in listing; full-time employee",
+      "work_model_location": "Berlin; full-time; Sweden eligibility unknown",
       "posted_date": "date n/a",
       "core_tech_stack": [
-        "autonomy software",
-        "intelligent systems",
-        "defense technology"
+        "IT operations",
+        "Defense technology environment"
       ],
-      "direct_link": "https://jobs.lever.co/shieldai/df6dcf11-b405-4df0-ad74-b0bfc752270d",
-      "why_match": "Shield AI is highly relevant to Victor's defense-tech target domain and the listing is permanent. However, this specific role is not a software-engineering fit for his profile, and the geography appears US-centric despite the eligibility tag, so it is included only as evidence of target-employer activity, not as a strong application recommendation.",
-      "confidence": "Low",
-      "clearance_status": "Not specified"
-    },
-    {
-      "company": "Stott and May",
-      "company_description": "Specialist recruiter covering software engineering, cyber security, and data/AI roles including some defense-adjacent searches.",
-      "title": "Technology Jobs",
-      "role_category": "Defense-adjacent software openings aggregator",
-      "track": "Defense & Military Tech",
-      "work_model_location": "Permanent roles board; exact location varies; Sweden eligibility tagged eligible",
-      "posted_date": "date n/a",
-      "core_tech_stack": [
-        "software engineering",
-        "cyber security",
-        "data and AI"
-      ],
-      "direct_link": "https://find.stottandmay.com/jobs",
-      "why_match": "This is not a single verified defense software posting, but it was one of the few kept defense sources tagged permanent and Sweden-eligible. It may be useful for manual follow-up on defense-adjacent backend, cyber, or AI roles that fit Victor's profile, but current evidence is too weak for a direct targeted application.",
+      "direct_link": "https://helsing.ai/jobs/4893273101?gh_jid=4893273101",
+      "why_match": "Included as a genuine full-time defense-company signal rather than as a strong application recommendation. The company is directly aligned with Victor’s defense priority, but the role itself is a poor fit for his senior software engineering background.",
       "confidence": "Low",
       "clearance_status": "Not specified"
     }
@@ -157,46 +172,49 @@
   "android_core_track": [
     {
       "company": "MLabs LTD",
-      "company_description": "Software company hiring remote engineering talent, with an advertised senior Android opening.",
+      "company_description": "Software engineering consultancy/product builder hiring remote Android talent.",
       "title": "Senior Android Engineer",
       "role_category": "Senior Android Engineer",
       "track": "Android / Kotlin Core",
-      "work_model_location": "100% Remote; FlexJobs listing indicates remote work; Sweden eligibility tagged eligible",
+      "work_model_location": "100% remote; Sweden/EU eligibility tagged eligible",
       "posted_date": "date n/a",
       "core_tech_stack": [
         "Android",
         "Kotlin"
       ],
       "direct_link": "https://www.flexjobs.com/gjw/mlabs_ltd/senior-android-engineer/publicjobs?id=42cb3668-5e59-4d82-8c15-dae574e0679f",
-      "why_match": "This is the cleanest fallback against Victor's deepest proven strength: senior Android delivery in Kotlin. Confidence is limited because employment type was not explicitly extracted in evidence and FlexJobs is an intermediary rather than the employer ATS, but the role itself aligns tightly with his strongest portfolio.",
+      "why_match": "Best fallback role in the supplied evidence: direct alignment with Victor’s deepest proven strength, clear remote signal, and seniority that matches his level.",
       "confidence": "Medium",
       "clearance_status": "Not specified"
     }
   ],
   "profile_strengthening": [
-    "1) Build and publish one defense-flavored FDE case study within 2 weeks: create a small end-to-end 'situational awareness copilot' demo with a Kotlin or TypeScript frontend, Python service layer, RAG over geospatial/incident documents, audit logging, and offline/edge constraints clearly documented. This directly closes the recurring gap between Victor's AI work and defense/FDE buyers who expect operational, customer-facing deployment stories rather than general AI enthusiasm.",
-    "2) Harden Python into independent evidence over the next 30 days: ship one repo without leaning on AI-generated glue code, covering FastAPI, async I/O, Pydantic, pytest, background jobs, and vector/RAG integration. Many AI-first roles implicitly expect Python fluency even when listings are vague; right now Victor's AI credibility is strong, but the market will still probe for hands-on Python depth.",
-    "3) Harden TypeScript into independent evidence over the next 30 days: produce a polished full-stack AI app in Next.js/TypeScript with typed API boundaries, streaming responses, evals/telemetry, and auth. The recurring AI-platform and product-engineering roles reward engineers who can own the customer-facing layer as confidently as the backend and orchestration layer.",
-    "4) Reframe CV and LinkedIn for FDE positioning immediately: rewrite top bullets to emphasize customer-facing deployment, ambiguous problem discovery, stakeholder alignment, rapid customization, and 0-to-production delivery. The evidence set contained several FDE-adjacent and applied-AI roles; Victor already has the raw experience, but it needs to read less like 'mobile/backend engineer who also used AI' and more like 'engineer who ships AI systems into real operating environments.'",
-    "5) Add defense-domain credibility with lightweight but concrete signals: study and summarize C2/ISR, secure communications, edge/offline resilience, and safety/security requirements in a short public writing series or GitHub notes. True defense opportunities in Europe often have structural blockers such as clearance or citizenship, so the near-term goal is to become clearly legible for defense-adjacent commercial companies and dual-use startups before pursuing stricter cleared roles."
+    "1) Build and publish one defense-relevant AI delivery case study within 2 weeks: create a public repo and short write-up for a secure situational-awareness or analyst-assistant workflow using Python, TypeScript, RAG, tool-calling, and audit logging. Frame it as a customer-deployable system, not a demo. This directly closes the gap for FDE and defense-AI roles that expect applied, mission-oriented outcomes.",
+    "2) Harden Python into independent proof, not assisted usage: ship a small but rigorous Python service with FastAPI, async pipelines, embeddings/vector retrieval, evaluation scripts, tests, and Docker packaging. Add benchmarks, typed models, and CI. Several AI roles implicitly expect Python-first depth, and Victor currently risks being screened as Kotlin-first with shallow Python evidence.",
+    "3) Harden TypeScript into independent product depth: build a Next.js + TypeScript front end tied to the Python/LLM backend, including streaming responses, auth, observability hooks, and schema-safe API contracts. This addresses recurring AI product engineer expectations and strengthens FDE credibility where customer-facing customization and integration are common.",
+    "4) Reposition the CV and LinkedIn headline around applied AI delivery and customer impact: lead with 'Senior Software Engineer - Applied AI / Forward Deployed / Kotlin backend' and move the Volvo AI assistant into the top third with outcome bullets such as time-to-production, architecture ownership, model/tool orchestration, and stakeholder-facing deployment. Current raw strengths are better than the likely market perception; packaging is the gap.",
+    "5) Add defense-domain credibility signals over the next 30 days: study NATO-style C2/ISR terminology, secure SDLC, threat modeling, edge/offline constraints, and EU defense procurement basics; then publish one concise article or portfolio note translating Victor’s experience into defense-relevant language. The biggest defense blocker in the live results is not coding fit alone but domain signaling and likely clearance sensitivity.",
+    "6) Create a dedicated 'Forward Deployed evidence pack': three short STAR stories covering customer discovery, tailoring a solution under ambiguity, deploying on real constraints, and handling production feedback loops. Many target AI roles are effectively solutions/FDE roles; having explicit examples will convert broad engineering strength into interview-ready proof."
   ],
   "methodology": [
-    "Applied hard exclusions first: contractor, freelance, B2B, hourly, temporary, US-only, and single-country remote roles not clearly open to Sweden/EU were removed where evidence allowed.",
-    "Used only the supplied live-search evidence and honored the provided employment=, sweden_eligibility=, and posted= tags without inventing dates.",
-    "Ranked remaining roles by remote-in-Europe viability, match to priority tracks (AI-first/FDE and defense), overlap with Victor's proven strengths, and evidence quality.",
-    "Kept Android/Kotlin fallback intentionally small because it is a coverage track, not the main search objective.",
-    "Lowered confidence whenever the listing evidence did not clearly confirm remote scope, Sweden/EU eligibility, exact stack, or whether the source was a direct ATS versus an aggregator."
+    "Used only the supplied live web-search evidence and enforced the hard filters before ranking: permanent full-time only, Sweden/EU applicability required, and priority preference for AI-first/FDE plus defense.",
+    "Preferred official or ATS-style listings where possible; low-quality aggregators, non-listings, irrelevant postings, and clearly non-engineering roles were excluded or heavily down-ranked.",
+    "Honored the provided evidence tags for employment, sweden_eligibility, and posted. Because nearly all supplied postings had posted=date n/a, recency could not be strongly differentiated.",
+    "Ranked surviving roles by: remote-in-Europe friendliness first, then alignment to AI-first/FDE and defense goals, then fit to Victor’s proven strengths, then evidence quality and clarity of application path.",
+    "Kept Android/Kotlin Core intentionally narrow as fallback coverage only, surfacing just the strongest plausible option."
   ],
   "notable_risks": [
-    "Defense-track evidence in this run is weak and contaminated by non-job or irrelevant sources, so defense recommendations are low confidence.",
-    "Several AI-first listings are promising on content but fail the hard default of clearly Europe/Sweden-open remote work.",
-    "Many postings lacked extractable posted dates, so freshness could not be validated to the desired 48-hour standard.",
-    "Clearance, citizenship, or export-control constraints are likely underreported in defense-adjacent listings and may emerge later in process."
+    "Defense-track evidence quality was poor: many results were clearly irrelevant, US-based, non-remote, or not genuine software listings. This sharply limits confidence in defense recommendations from this run.",
+    "Several AI-first roles had strong functional fit but weak evidence on exact remote model or Sweden eligibility; these were retained only with Medium or Low confidence and explicit caveats.",
+    "The supplied evidence often lacked exact posting dates, so freshness could not be validated against the preferred 48-hour window.",
+    "Victor is highly credible for applied AI delivery, but some target roles may still screen for deeper standalone Python-first backgrounds than his current public profile suggests.",
+    "Defense roles may introduce structural blockers not visible in the evidence, including clearance, nationality restrictions, export controls, or on-site requirements."
   ],
   "search_limitations": [
-    "The supplied evidence set included multiple aggregators and noisy/non-listing pages; only a subset had enough structured detail to surface responsibly.",
-    "Direct ATS validation was incomplete for several roles, especially on exact work model and employment type.",
-    "For some listings, the evidence tag marked Sweden eligibility as eligible even when the visible snippet suggested a narrower geography; confidence was reduced instead of inventing certainty.",
-    "No strong, directly verified Sweden/EU-remote defense software engineer posting was present in the provided evidence after filtering."
+    "The evidence set contained substantial noise: recruiter homepages, generic job-board indexes, expired roles, irrelevant PDFs, and non-engineering postings.",
+    "Many listings lacked explicit work-model detail, exact posting date, or confirmed Sweden/EU text in the captured evidence, forcing conservative confidence scoring.",
+    "Because this run was constrained to the provided evidence bundle, no additional validation beyond those excerpts could be performed for ambiguous listings.",
+    "The hard requirement of permanent full-time plus Sweden/EU applicability eliminated many otherwise interesting opportunities, especially in defense and US-centric AI companies.",
+    "As a result, coverage in Defense & Military Tech is intentionally thin rather than padded with weak or non-compliant matches."
   ]
 }

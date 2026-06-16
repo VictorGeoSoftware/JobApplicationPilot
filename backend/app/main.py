@@ -72,7 +72,7 @@ async def recruiter_answer(payload: RecruiterRequest) -> RecruiterResponse:
 @app.post("/api/jobseeker/run", response_model=JobSeekerResponse)
 async def run_jobseeker(_payload: JobSeekerRequest) -> JobSeekerResponse:
     try:
-        result = await app.state.job_seeker_agent.run()
+        result = await app.state.job_seeker_agent.run(extra_prompt=_payload.extra_prompt)
     except MissingConfigError as error:
         raise HTTPException(status_code=500, detail=str(error)) from error
     except UpstreamModelError as error:
