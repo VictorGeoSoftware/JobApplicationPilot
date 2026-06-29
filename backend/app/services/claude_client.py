@@ -34,7 +34,6 @@ class ClaudeClient:
         payload = {
             "model": self.model,
             "max_tokens": settings.claude_max_tokens,
-            "temperature": settings.claude_temperature,
             "system": system_prompt,
             "messages": [
                 {

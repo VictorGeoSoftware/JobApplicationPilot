@@ -8,3 +8,10 @@
 [2026-06-15 05:35 UTC] fallback_used=False reason=json_parsed raw_chars=14864 final_chars=19053 final_has_close_html=True
 [2026-06-15 05:49 UTC] fallback_used=False reason=json_parsed raw_chars=18366 final_chars=23435 final_has_close_html=True focus="Hey, I'm quite into Drones, so I'd like to find something where I can develop so"
 [2026-06-16 05:13 UTC] fallback_used=False reason=json_parsed raw_chars=16624 final_chars=21191 final_has_close_html=True
+[2026-06-16 05:22 UTC] fallback_used=True reason=json_decode_error:Expecting property name enclosed in double quotes raw_chars=3648 final_chars=165468 final_has_close_html=True
+[2026-06-17 13:59 UTC] fallback_used=True reason=json_decode_error:Unterminated string starting at raw_chars=3931 final_chars=168526 final_has_close_html=True
+[2026-06-18 07:54 UTC] fallback_used=True reason=json_decode_error:Unterminated string starting at raw_chars=3812 final_chars=165778 final_has_close_html=True
+[2026-06-18 07:59 UTC] fallback_used=False reason=json_parsed raw_chars=16401 final_chars=21143 final_has_close_html=True
+[2026-06-22 05:11 UTC] fallback_used=False reason=json_parsed raw_chars=18442 final_chars=23389 final_has_close_html=True
+[2026-06-23 05:28 UTC] fallback_used=False reason=json_parsed raw_chars=20429 final_chars=25428 final_has_close_html=True
+[2026-06-23 15:17 UTC] fallback_used=False reason=json_parsed raw_chars=17191 final_chars=21852 final_has_close_html=True
