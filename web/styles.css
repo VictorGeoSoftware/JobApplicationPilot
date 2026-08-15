@@ -1,0 +1,143 @@
+:root {
+  --bg: #f4f7ff;
+  --card: #ffffff;
+  --text: #162033;
+  --muted: #5f6e89;
+  --line: #d8e0f0;
+  --accent: #1d5eff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 85% 8%, #dde7ff, var(--bg));
+  color: var(--text);
+}
+
+.pane {
+  max-width: 900px;
+  margin: 22px auto;
+  padding: 0 14px 28px;
+  display: grid;
+  gap: 14px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+}
+
+button.secondary {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  background: #e8eeff;
+  color: #2046a5;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+#custom-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.custom-item {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px;
+  background: #fbfcff;
+}
+
+.custom-item strong {
+  color: #173a8f;
+}
+
+.custom-item button {
+  margin-top: 8px;
+  background: #d93636;
+}
+
+pre {
+  margin: 0;
+  background: #0f1730;
+  color: #ecf0ff;
+  border-radius: 9px;
+  padding: 10px;
+  font-size: 12px;
+  min-height: 70px;
+  overflow: auto;
+}
+
+@media (max-width: 700px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

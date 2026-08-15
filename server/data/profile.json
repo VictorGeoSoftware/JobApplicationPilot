@@ -1,0 +1,48 @@
+{
+  "fullName": "Victor Palma Carrasco",
+  "headline": "Senior Software Engineer | AI-Augmented Engineering | Android, Backend, Blockchain",
+  "email": "vpalmacarrasco@gmail.com",
+  "phone": "+46 072 650 1186",
+  "location": "Uddevalla, Sweden",
+  "linkedin": "https://www.linkedin.com/in/victor-palma-carrasco-a884ba57/",
+  "github": "https://github.com/VictorGeoSoftware",
+  "website": "",
+  "portfolio": "",
+  "yearsExperience": "10+",
+  "salaryExpectations": "",
+  "noticePeriod": "",
+  "workAuthorization": "Authorized to work in Sweden and the EU",
+  "summary": "Senior Software Engineer with 10+ years delivering production systems across mobile, backend, and platform engineering. Strong background in Android, clean architecture, TDD, and AI-augmented engineering workflows.",
+  "highlights": [
+    "Built and evolved flagship mobile products for Volvo Cars used by millions of users.",
+    "Led Android architecture modernization with Jetpack Compose, modular design, and robust CI/CD.",
+    "Delivered AI-assisted engineering workflows while maintaining strict quality and testing standards."
+  ],
+  "skills": [
+    "Android", "Kotlin", "Java", "Jetpack Compose", "MVVM", "Clean Architecture", "Kotlin Multiplatform",
+    "Node.js", "JavaScript", "TypeScript", "Solidity", "TDD", "JUnit5", "MockK", "Espresso", "Cucumber"
+  ],
+  "experience": [
+    {
+      "company": "Volvo Group",
+      "role": "Senior Software Engineer",
+      "period": "2024 - Present"
+    },
+    {
+      "company": "Volvo Cars",
+      "role": "Senior Android Engineer",
+      "period": "2019 - 2024"
+    },
+    {
+      "company": "A3 Media",
+      "role": "Android Engineer",
+      "period": "2018 - 2019"
+    },
+    {
+      "company": "mShop",
+      "role": "Android Engineer",
+      "period": "2015 - 2018"
+    }
+  ],
+  "languages": ["Spanish (Native)", "English (Fluent)", "Swedish (Basic)"]
+}

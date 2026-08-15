@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Pilot</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="pane">
+      <header>
+        <h1>Job Application Pilot</h1>
+        <p>Single-pane flow: set job context, generate AI content, reuse saved field responses.</p>
+      </header>
+
+      <section class="card">
+        <h2>Job context</h2>
+        <label>
+          Job URL
+          <input id="job-url" type="url" placeholder="https://jobs.lever.co/..." />
+        </label>
+        <label>
+          Job title (optional)
+          <input id="job-title" type="text" placeholder="Senior Android Engineer" />
+        </label>
+        <label>
+          Company (optional)
+          <input id="job-company" type="text" placeholder="Qonto" />
+        </label>
+        <label>
+          Job description (optional)
+          <textarea id="job-description" rows="4" placeholder="Paste the role details if needed"></textarea>
+        </label>
+
+        <div class="actions">
+          <button id="generate-btn" type="button">Generate with Gemini</button>
+          <span id="status" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Generated fields</h2>
+        <label>
+          Motivation
+          <textarea id="motivation" rows="6"></textarea>
+        </label>
+        <button data-copy="motivation" class="secondary">Copy Motivation</button>
+
+        <label>
+          Cover letter
+          <textarea id="cover-letter" rows="10"></textarea>
+        </label>
+        <button data-copy="cover-letter" class="secondary">Copy Cover Letter</button>
+      </section>
+
+      <section class="card">
+        <h2>Reusable custom responses</h2>
+        <div class="grid-2">
+          <label>
+            Key
+            <input id="custom-key" type="text" placeholder="most_complicated_project" />
+          </label>
+          <label>
+            Description
+            <input id="custom-description" type="text" placeholder="Most complicated project question" />
+          </label>
+        </div>
+        <label>
+          Response
+          <textarea id="custom-response" rows="4" placeholder="Write the reusable answer"></textarea>
+        </label>
+        <div class="actions">
+          <button id="save-custom-btn" type="button">Save response</button>
+        </div>
+        <div id="custom-list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Field matcher</h2>
+        <label>
+          Incoming field name
+          <input id="field-name" type="text" placeholder="Tell us about your most complex project" />
+        </label>
+        <label>
+          Field description (optional)
+          <textarea id="field-description" rows="3" placeholder="Describe your approach, constraints, and impact"></textarea>
+        </label>
+        <div class="actions">
+          <button id="match-btn" type="button">Suggest best saved response</button>
+        </div>
+        <pre id="match-output"></pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
